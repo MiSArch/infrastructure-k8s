@@ -10,6 +10,10 @@ variable "root_domain" {
   type = string
 }
 
+variable "catalog_version" {
+  type    = string
+  default = "v0.0.1"
+}
 
 variable "keycloak_version" {
   type    = string
