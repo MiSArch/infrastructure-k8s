@@ -7,7 +7,7 @@ variable "image_pull_secret" {
 */
 
 variable "root_domain" {
-  type = string
+  type        = string
   description = "Full URL the instance will be published on. Should not have a trailing slash."
 }
 
@@ -30,7 +30,7 @@ variable "keycloak_admin_password" {
 variable "kubernetes_config_path" {
   sensitive = true
   type      = string
-  default   =  "./kubeconfig.yaml"
+  default   = "./kubeconfig.yaml"
 }
 
 variable "kubernetes_namespace" {

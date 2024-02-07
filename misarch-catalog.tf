@@ -51,10 +51,10 @@ resource "kubernetes_deployment" "misarch_catalog" {
             }
           }
 
-	# TODO: Do I need these env vars?
-	#      - SPRING_R2DBC_URL=r2dbc:postgresql://catalog-db:5432/catalog
-	#      - SPRING_FLYWAY_URL=jdbc:postgresql://catalog-db:5432/catalog
-	#      - SPRING_PROFILES_ACTIVE=dev
+          # TODO: Do I need these env vars?
+          #      - SPRING_R2DBC_URL=r2dbc:postgresql://catalog-db:5432/catalog
+          #      - SPRING_FLYWAY_URL=jdbc:postgresql://catalog-db:5432/catalog
+          #      - SPRING_PROFILES_ACTIVE=dev
 
           env {
             name  = "SPRING_DATASOURCE_URL"
@@ -71,28 +71,28 @@ resource "kubernetes_deployment" "misarch_catalog" {
             value = random_password.misarch_catalog_db_password.result
           }
 
-	# TODO: wget http://localhost:8080/graphiql || exit 1
-           liveness_probe {
-             http_get {
-               path = "/actuator/health/liveness"
-               port = 8080
+          # TODO: wget http://localhost:8080/graphiql || exit 1
+          liveness_probe {
+            http_get {
+              path = "/actuator/health/liveness"
+              port = 8080
 
-             }
+            }
 
-             initial_delay_seconds = 30
-             period_seconds        = 10
-           }
+            initial_delay_seconds = 30
+            period_seconds        = 10
+          }
 
-           readiness_probe {
-             http_get {
-               path = "/actuator/health/readiness"
-               port = 8080
+          readiness_probe {
+            http_get {
+              path = "/actuator/health/readiness"
+              port = 8080
 
-             }
+            }
 
-             initial_delay_seconds = 30
-             period_seconds        = 10
-           }
+            initial_delay_seconds = 30
+            period_seconds        = 10
+          }
         }
       }
     }
