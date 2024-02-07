@@ -8,6 +8,7 @@ variable "image_pull_secret" {
 
 variable "root_domain" {
   type = string
+  description = "Full URL the instance will be published on. Should not have a trailing slash."
 }
 
 variable "catalog_version" {

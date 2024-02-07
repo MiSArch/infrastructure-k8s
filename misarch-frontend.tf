@@ -24,9 +24,6 @@ resource "kubernetes_deployment" "misarch_frontend" {
       }
 
       spec {
-        image_pull_secrets {
-          name = kubernetes_secret.image_pull.metadata[0].name
-        }
 
         container {
           image             = "ghcr.io/misarch/frontend:latest"
@@ -59,7 +56,7 @@ resource "kubernetes_deployment" "misarch_frontend" {
           }
           env {
             name  = "PUBLIC_OAUTH_AUTHORITY"
-            value = var.root_domain + "/keycloak/realms/misarch"
+            value = "${var.root_domain}/keycloak/realms/misarch"
           }
 
           liveness_probe {
