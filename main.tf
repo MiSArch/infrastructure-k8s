@@ -1,16 +1,16 @@
 provider "kubernetes" {
-  config_path = var.kubernetes_config_path
+  config_path = var.KUBERNETES_CONFIG_PATH
 }
 
 provider "helm" {
   kubernetes {
-    config_path = var.kubernetes_config_path
+    config_path = var.KUBERNETES_CONFIG_PATH
   }
 }
 
 resource "kubernetes_namespace" "misarch" {
   metadata {
-    name = var.kubernetes_namespace
+    name = var.KUBERNETES_NAMESPACE
   }
 }
 
@@ -23,7 +23,7 @@ resource "kubernetes_secret" "image_pull" {
   }
 
   data = {
-    ".dockerconfigjson" = var.image_pull_secret
+    ".dockerconfigjson" = var.IMAGE_PULL_SECRET
   }
 
   type = "kubernetes.io/dockerconfigjson"

@@ -11,7 +11,7 @@ resource "helm_release" "keycloak" {
 
   set {
     name  = "auth.adminPassword"
-    value = var.keycloak_admin_password
+    value = var.KEYCLOAK_ADMIN_PASSWORD
   }
   set {
     name  = "production"
@@ -35,6 +35,6 @@ resource "helm_release" "keycloak" {
   }
   set {
     name  = "image.tag"
-    value = var.keycloak_version
+    value = var.KEYCLOAK_VERSION
   }
 }

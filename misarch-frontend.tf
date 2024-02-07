@@ -48,7 +48,7 @@ resource "kubernetes_deployment" "misarch_frontend" {
           }
           env {
             name  = "PUBLIC_OAUTH_REDIRECT_URL"
-            value = var.root_domain
+            value = var.ROOT_DOMAIN
           }
           env {
             name  = "PUBLIC_OAUTH_CLIENT_ID"
@@ -56,7 +56,7 @@ resource "kubernetes_deployment" "misarch_frontend" {
           }
           env {
             name  = "PUBLIC_OAUTH_AUTHORITY"
-            value = "${var.root_domain}/keycloak/realms/misarch"
+            value = "${var.ROOT_DOMAIN}/keycloak/realms/misarch"
           }
 
           liveness_probe {

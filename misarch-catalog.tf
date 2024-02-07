@@ -35,7 +35,7 @@ resource "kubernetes_deployment" "misarch_catalog" {
       spec {
 
         container {
-          image             = "ghcr.io/misarch/catalog:${var.catalog_version}"
+          image             = "ghcr.io/misarch/catalog:${var.CATALOG_VERSION}"
           image_pull_policy = "Always"
 
           name = "misarch-catalog"
