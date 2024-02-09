@@ -6,11 +6,6 @@ resource "helm_release" "dapr" {
 }
 
 
-resource "random_password" "redis" {
-  length  = 32
-  special = false
-}
-
 resource "helm_release" "redis" {
   name       = "redis"
   repository = "https://charts.bitnami.com/bitnami"
@@ -23,6 +18,7 @@ resource "helm_release" "redis" {
   }
 }
 
+/*
 # -- comment out the two resources below when initially creating the cluster, somehow this fails to plan on the first run
 
 resource "kubernetes_manifest" "dapr_state_config" {
@@ -81,3 +77,4 @@ resource "kubernetes_manifest" "dapr_pubsub_config" {
     }
   }
 }
+*/

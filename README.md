@@ -69,6 +69,14 @@ The GraphQL Gateway, configured in `gateway.tf`, serves as the central entry poi
 4. **Initialize Terraform**: Run `terraform init` to initialize the Terraform workspace.
 5. **Apply Configuration**: Execute `terraform apply` to deploy the resources to your Kubernetes cluster.
 
+#### Pre-configured builds
+
+We offer two scripts to omit filling variable names on a `terraform apply`:
+- `./test-deployment.sh`: Only for testing out if the Kubernetes Cluster can be created without errors, prefills Terraform env vars with the maximum amount of nonsense possible to omit this step during `terraform apply`
+- `./up-to-date-deployment.sh`: Sets env vars that ensures every pod is automatically mapped to `latest` instead of a specific version.
+
+To execute any of these scripts, call either `./<script name>`, `. <script name>`, or `source <script name>`.
+
 ### Troubleshooting
 
 - **Expired GitHub Token**: GitHub tokens used for pulling images expire occasionally. If you encounter issues related to image pulls, regenerate the token and update `terraform.tfvars`.

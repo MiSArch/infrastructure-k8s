@@ -1,0 +1,2 @@
+export TF_VAR_KEYCLOAK_VERSION=latest
+export TF_VAR_MISARCH_CATALOG_VERSION=latest

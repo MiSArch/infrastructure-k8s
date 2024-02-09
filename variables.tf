@@ -30,7 +30,6 @@ variable "KEYCLOAK_ADMIN_PASSWORD" {
 variable "KUBERNETES_CONFIG_PATH" {
   sensitive = true
   type      = string
-  default   = "./kubeconfig.yaml"
 }
 
 variable "KUBERNETES_NAMESPACE" {

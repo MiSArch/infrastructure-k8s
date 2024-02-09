@@ -99,11 +99,6 @@ resource "kubernetes_deployment" "misarch_catalog" {
   }
 }
 
-resource "random_password" "misarch_catalog_db_password" {
-  length  = 32
-  special = false
-}
-
 resource "helm_release" "misarch_catalog_db" {
   name       = "misarch-catalog-db"
   repository = "oci://registry-1.docker.io/bitnamicharts"

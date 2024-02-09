@@ -37,4 +37,16 @@ resource "helm_release" "keycloak" {
     name  = "image.tag"
     value = var.KEYCLOAK_VERSION
   }
+  set {
+    name  = "postgresql.auth.username"
+    value = "misarch"
+  }
+  set {
+    name  = "postgresql.auth.postgresPassword"
+    value = random_password.keycloak_db_password.result
+  }
+  set {
+    name  = "postgresql.auth.database"
+    value = "misarch"
+  }
 }
