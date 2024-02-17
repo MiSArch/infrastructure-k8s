@@ -18,7 +18,7 @@ variable "CATALOG_VERSION" {
 
 variable "KEYCLOAK_VERSION" {
   type    = string
-  default = "v0.0.2"
+  default = "development"
 }
 
 variable "KEYCLOAK_ADMIN_PASSWORD" {
