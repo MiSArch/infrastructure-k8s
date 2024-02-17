@@ -1,0 +1,27 @@
+[submodule "catalog"]
+	path = catalog
+	url = ../catalog
+[submodule "wishlist"]
+	path = wishlist
+	url = ../wishlist
+[submodule "frontend"]
+	path = frontend
+	url = ../frontend
+[submodule "inventory"]
+	path = inventory
+	url = ../inventory
+[submodule "shoppingcart"]
+	path = shoppingcart
+	url = ../shoppingcart
+[submodule "gateway"]
+	path = gateway
+	url = ../gateway
+[submodule "notification"]
+	path = notification
+	url = ../notification
+[submodule "user"]
+	path = user
+	url = ../user
+[submodule "keycloak"]
+	path = keycloak
+	url = git@github.com:MiSArch/keycloak
