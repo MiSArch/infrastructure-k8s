@@ -4,6 +4,7 @@ resource "helm_release" "keycloak" {
   chart      = "keycloak"
   namespace  = kubernetes_namespace.misarch.metadata[0].name
 
+TODO= Add keycloak-user-creation-events init container
   values = [
     <<-EOF
     image:
@@ -37,11 +38,24 @@ resource "helm_release" "keycloak" {
       - name: misarch-keycloak-realm
         configMap:
            name: misarch-keycloak-realm-config
+      - name: misarch-keycloak-plugins
+        configMap:
+           name: misarch-keycloak-plugin-config
     extraVolumeMounts:
       - name: misarch-keycloak-realm
         mountPath: "/opt/keycloak/data/import"
+      - name: misarch-keycloak-plugins
+        mountPath: "/opt/keycloak/providers"
     EOF
   ]
+}
+
+resource "kubernetes_config_map" "misarch_keycloak_plugin_config" {
+  metadata {
+    name      = "misarch-keycloak-plugin-config"
+    namespace = "misarch"
+  }
+  // Data is set by the init container
 }
 
 resource "kubernetes_config_map" "misarch_keycloak_realm_config" {
