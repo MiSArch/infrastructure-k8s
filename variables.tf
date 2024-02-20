@@ -27,6 +27,11 @@ variable "KEYCLOAK_ADMIN_PASSWORD" {
   default   = "admin"
 }
 
+variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
 variable "KUBERNETES_CONFIG_PATH" {
   sensitive = true
   type      = string

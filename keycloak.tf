@@ -31,6 +31,10 @@ TODO= Add keycloak-user-creation-events init container
     readinessProbe:
       initialDelaySeconds: 60
       timeoutSeconds: 10
+    initContainers:
+      - name: keycloak-plugin-initializer
+        image: "https://ghcr.io/misarch/keycloak-user-creation-events${KEYCLOAK_USER_EVENTS_PLUGIN_VERSION}"
+        imagePullPolicy: Always
     extraEnvVars:
       - name: KC_HOSTNAME_STRICT
         value: "false"
