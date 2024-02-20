@@ -32,7 +32,7 @@ resource "helm_release" "keycloak" {
       timeoutSeconds: 10
     initContainers:
       - name: keycloak-plugin-initializer
-        image: "https://ghcr.io/misarch/keycloak-user-creation-events${KEYCLOAK_USER_EVENTS_PLUGIN_VERSION}"
+        image: "https://ghcr.io/misarch/keycloak-user-creation-events${var.KEYCLOAK_USER_EVENTS_PLUGIN_VERSION}"
         imagePullPolicy: Always
     extraEnvVars:
       - name: KC_HOSTNAME_STRICT
