@@ -4,7 +4,6 @@ resource "helm_release" "keycloak" {
   chart      = "keycloak"
   namespace  = kubernetes_namespace.misarch.metadata[0].name
 
-TODO= Add keycloak-user-creation-events init container
   values = [
     <<-EOF
     image:
