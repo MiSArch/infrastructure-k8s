@@ -24,4 +24,4 @@
 	url = ../user
 [submodule "keycloak"]
 	path = keycloak
-	url = git@github.com:MiSArch/keycloak
+	url = ../keycloak
