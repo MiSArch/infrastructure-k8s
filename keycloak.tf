@@ -10,6 +10,11 @@ resource "helm_release" "keycloak" {
       registry: "quay.io"
       repository: "keycloak/keycloak"
       tag: "${var.KEYCLOAK_VERSION}"
+    podAnnotations:
+      dapr.io/enabled: "true"
+      dapr.io/app-id: "keycloak"
+      dapr.io/app-port: "80"
+      dapr.io/config: "tracing"
     auth:
       adminUser: admin
       adminPassword: ${var.KEYCLOAK_ADMIN_PASSWORD}
@@ -56,7 +61,6 @@ resource "helm_release" "keycloak" {
   ]
 }
 
-// TODO: Something here does not work as intended!
 resource "kubernetes_persistent_volume_claim" "misarch_keycloak_plugin_volume" {
   metadata {
     name      = "misarch-keycloak-plugin-volume"
