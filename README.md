@@ -1,4 +1,4 @@
-# Misarch Infrastructure
+# Misarch Kubernetes Infrastructure
 
 ## Overview
 
@@ -79,8 +79,9 @@ To execute any of these scripts, call either `./<script name>`, `. <script name>
 
 ### Troubleshooting
 
-- **Expired GitHub Token**: GitHub tokens used for pulling images expire occasionally. If you encounter issues related to image pulls, regenerate the token and update `terraform.tfvars`.
 - **Disappearing Dapr Sidecars**: If Dapr sidecars disappear, causing communication to stop working in the cluster, try restarting the affected deployments.
 - **Schema Changes in Services**: If there are schema changes in individual services without changes in the gateway code, a restart of the gateway deployment is required.
+- **\<x\> exists already**: When running `terraform apply` and this error occurs, execute `kubectl delete namespaces misarch` (or whatever you named your namespace) and try again. We know it's weird, but we did not find a better solution for it.
+- 
 
 Hint: For easier management and debugging, it helps to use a Kubernetes management UI like Lens to connect to the cluster, restart deployments or setup port forwarding.

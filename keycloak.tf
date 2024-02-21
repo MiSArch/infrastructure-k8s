@@ -32,8 +32,11 @@ resource "helm_release" "keycloak" {
       timeoutSeconds: 10
     initContainers:
       - name: keycloak-plugin-initializer
-        image: "https://ghcr.io/misarch/keycloak-user-creation-events${var.KEYCLOAK_USER_EVENTS_PLUGIN_VERSION}"
+        image: "ghcr.io/misarch/keycloak-user-creation-events:${var.KEYCLOAK_USER_EVENTS_PLUGIN_VERSION}"
         imagePullPolicy: Always
+        volumeMounts:
+          - name: misarch-keycloak-plugins
+            mountPath: "/opt/keycloak/providers"
     extraEnvVars:
       - name: KC_HOSTNAME_STRICT
         value: "false"
@@ -42,8 +45,8 @@ resource "helm_release" "keycloak" {
         configMap:
            name: misarch-keycloak-realm-config
       - name: misarch-keycloak-plugins
-        configMap:
-           name: misarch-keycloak-plugin-config
+        persistentVolumeClaim:
+           claimName: misarch-keycloak-plugin-volume
     extraVolumeMounts:
       - name: misarch-keycloak-realm
         mountPath: "/opt/keycloak/data/import"
@@ -53,12 +56,21 @@ resource "helm_release" "keycloak" {
   ]
 }
 
-resource "kubernetes_config_map" "misarch_keycloak_plugin_config" {
+// TODO: Something here does not work as intended!
+resource "kubernetes_persistent_volume_claim" "misarch_keycloak_plugin_volume" {
   metadata {
-    name      = "misarch-keycloak-plugin-config"
-    namespace = "misarch"
+    name      = "misarch-keycloak-plugin-volume"
+    namespace = var.KUBERNETES_NAMESPACE
   }
-  // Data is set by the init container
+  spec {
+    storage_class_name = ""
+    access_modes = ["ReadWriteOnce"]
+    resources {
+      requests = {
+        storage = "100M"
+      }
+    }
+  }
 }
 
 resource "kubernetes_config_map" "misarch_keycloak_realm_config" {
