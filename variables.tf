@@ -1,24 +1,110 @@
-variable "image_pull_secret" {
-  sensitive = true
-  type      = string
+variable "ROOT_DOMAIN" {
+  type        = string
+  description = "Full URL the instance will be published on. Should not have a trailing slash."
 }
 
-variable "root_domain" {
-  type = string
-}
-
-variable "version" {
+variable "MISARCH_CATALOG_VERSION" {
   type    = string
-  default = "latest"
+  default = "v0.0.1"
 }
 
-variable "keycloak_version" {
+variable "KEYCLOAK_VERSION" {
   type    = string
-  default = var.version
+  default = "23.0"
 }
 
-variable "keycloak_admin_password" {
+variable "KEYCLOAK_ADMIN_PASSWORD" {
   sensitive = true
   type      = string
   default   = "admin"
+}
+
+variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_REVIEW_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_WISHLIST_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_SHOPPINGCART_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_INVENTORY_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_MEDIA_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_TAX_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_DISCOUNT_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_USER_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_NOTIFICATION_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_ORDER_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_ADDRESS_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_RETURN_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_INVOICE_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_SHIPMENT_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_PAYMENT" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "KUBERNETES_CONFIG_PATH" {
+  sensitive = true
+  type      = string
+}
+
+variable "KUBERNETES_NAMESPACE" {
+  type    = string
+  default = "misarch"
 }
