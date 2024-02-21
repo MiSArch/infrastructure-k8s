@@ -14,10 +14,6 @@ We employ Terraform as the central tool for infrastructure-as-code, managing eve
 
 Our infrastructure consists of a mixture of "raw" Kubernetes resources and Helm-based deployments. All Misarch-services are deployed using raw Kubernetes manifests while we use Helm for standard resources like PostgreSQL databases, Keycloak and Minio to simplify management.
 
-<!--### Continuous Integration with Keel
-
-Keel serves as our CI tool, automating the update process for our Kubernetes resources. The pull-based approach to CI is particularly advantageous in our setup, as our code and Docker images are hosted externally on GitHub, while the Kubernetes cluster resides within the university network.
--->
 ### Ingress Configuration
 
 All services are exposed through an Nginx ingress that is presumed to already exist in the target cluster. This ingress handles routing and SSL termination, providing a unified access point to various services. Currently, self-signed certs are used due to the difficulty of using Let's Encrypt without a public endpoint. While this would be possible using DNS validation, this is complex to setup and requires a supported DNS provider.
@@ -29,7 +25,6 @@ All services are exposed through an Nginx ingress that is presumed to already ex
 - **main.tf**: Defines the Kubernetes namespace `misarch` and establishes image pull secrets required for pulling Docker images from external repositories.
 - **ingress.tf**: Sets up the Nginx ingress for managing external access. Configurations for SSL redirection and proxy buffer sizes are also defined here. All services to be exposed have to be configured here.
 - **dapr.tf**: Deploys the Dapr runtime using Helm charts. Also includes the setup for state and pub-sub components using Redis.
-- **keel.tf**: Manages the deployment of Keel, a tool used for automated Kubernetes deployments, via Helm charts.
 - **keycloak.tf**: Handles the setup for Keycloak, used for identity and access management. It utilizes Helm charts for deployment and includes admin user and password settings.
 
 ### Frontend Deployment
@@ -56,10 +51,6 @@ The GraphQL Gateway, configured in `gateway.tf`, serves as the central entry poi
 - **Terraform CLI**: Ensure you have version >= 1.0.11 installed.
 - **University VPN**: If managing the existing cluster, a connection to the university's VPN is required.
 - **Terraform State**: For managing the existing cluster, obtain and place the current Terraform state within the repository.
-- **`variables.tf`**: Either create a new `variables.tf` file or obtain the existing one when managing the existing cluster. To generate a GitHub token for pulling images, log in to Docker and execute the following shell command to create a new `terraform.tfvars` file:
-  ```sh
-  echo "image_pull_secret = \"$(cat ~/.docker/config.json | tr -d '[:space:]' | sed -e s/\"/\\\\\"/g)\"" > terraform.tfvars
-  ```
 
 ### Getting Started
 
@@ -69,13 +60,15 @@ The GraphQL Gateway, configured in `gateway.tf`, serves as the central entry poi
 4. **Initialize Terraform**: Run `terraform init` to initialize the Terraform workspace.
 5. **Apply Configuration**: Execute `terraform apply` to deploy the resources to your Kubernetes cluster.
 
-#### Pre-configured builds
+#### Auto-updating Build
 
-We offer two scripts to omit filling variable names on a `terraform apply`:
-- `./test-deployment.sh`: Only for testing out if the Kubernetes Cluster can be created without errors, prefills Terraform env vars with the maximum amount of nonsense possible to omit this step during `terraform apply`
-- `./up-to-date-deployment.sh`: Sets env vars that ensures every pod is automatically mapped to `latest` instead of a specific version.
+If you want to have a build whose images are always kept up to date instead of fixed to one version, replace `terraform apply` with `terraform apply -var-file="latest-deployment.tfvars"`.
 
-To execute any of these scripts, call either `./<script name>`, `. <script name>`, or `source <script name>`.
+#### Development Build
+
+If you simply want to test whether your deployment will work at all, run `. ./test-deployment.sh` before running `terraform apply`.\
+This script populates the bare minimum of variables so that `terraform apply` just works.\
+It is not intended for productive use in the slightest.
 
 ### Troubleshooting
 
