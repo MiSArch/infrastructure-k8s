@@ -1,1 +1,0 @@
-- Adapt Keycloak chart to our misarch fork so that Dapr events are triggered on user creation again
