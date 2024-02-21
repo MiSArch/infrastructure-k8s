@@ -1,11 +1,3 @@
-/*
-# Uncomment if there are any private images
-variable "IMAGE_PULL_SECRET" {
-  sensitive = true
-  type      = string
-}
-*/
-
 variable "ROOT_DOMAIN" {
   type        = string
   description = "Full URL the instance will be published on. Should not have a trailing slash."

@@ -14,19 +14,3 @@ resource "kubernetes_namespace" "misarch" {
   }
 }
 
-/*
-# Uncomment once we use private Docker images
-resource "kubernetes_secret" "image_pull" {
-  metadata {
-    name      = "github-container-secret"
-    namespace = kubernetes_namespace.misarch.metadata[0].name
-  }
-
-  data = {
-    ".dockerconfigjson" = var.IMAGE_PULL_SECRET
-  }
-
-  type = "kubernetes.io/dockerconfigjson"
-}
-*/
-
