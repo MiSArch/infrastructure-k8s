@@ -67,7 +67,7 @@ resource "kubernetes_persistent_volume_claim" "misarch_keycloak_plugin_volume" {
     access_modes = ["ReadWriteOnce"]
     resources {
       requests = {
-        storage = "100M"
+        storage = "1M" # Still FAR too large, that volume currently needs 8.2KB, but who cares, give it some space for future development
       }
     }
   }
