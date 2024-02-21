@@ -20,7 +20,6 @@ resource "helm_release" "keycloak" {
       adminPassword: ${var.KEYCLOAK_ADMIN_PASSWORD}
     proxy: "edge"
     production: true
-    # httpRelativePath: "/keycloak"
     command: ["/opt/keycloak/bin/kc.sh"]
     args: ["start-dev", "--import-realm"] # When you change 'start-dev' to 'start' (so converting it into a production build), HTTPS is suddenly required even though proxy=edge, which should not happen as per the docs…
     postgresql:
