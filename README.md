@@ -62,7 +62,12 @@ The GraphQL Gateway, configured in `gateway.tf`, serves as the central entry poi
 
 #### Auto-updating Build
 
-If you want to have a build whose images are always kept up to date instead of fixed to one version, replace `terraform apply` with `terraform apply -var-file="latest-deployment.tfvars"`.
+If you want to have a build whose images are always kept up to date instead of fixed to one version, replace `terraform apply` with `terraform apply -var-file="latest-deployment.tfvars"`.\
+However, the images will only be updated once you execute
+```sh
+kubectl -n misarch rollout restart deployment
+kubectl -n misarch rollout restart statefulset
+```
 
 #### Development Build
 
