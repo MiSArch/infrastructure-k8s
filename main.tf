@@ -14,3 +14,7 @@ resource "kubernetes_namespace" "misarch" {
   }
 }
 
+locals {
+  namespace = kubernetes_namespace.misarch.metadata[0].name
+}
+

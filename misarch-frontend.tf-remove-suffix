@@ -4,7 +4,7 @@ resource "kubernetes_deployment" "misarch_frontend" {
     labels = {
       app = "misarch-frontend"
     }
-    namespace = kubernetes_namespace.misarch.metadata[0].name
+    namespace = local.namespace
   }
 
   spec {
@@ -78,7 +78,7 @@ resource "kubernetes_deployment" "misarch_frontend" {
 resource "kubernetes_service" "misarch_frontend" {
   metadata {
     name      = "misarch-frontend"
-    namespace = kubernetes_namespace.misarch.metadata[0].name
+    namespace = local.namespace
   }
   spec {
     selector = {

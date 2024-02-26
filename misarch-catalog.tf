@@ -1,3 +1,10 @@
+locals {
+  misarch_catalog_specific_annotations = {
+    "dapr.io/app-id"    = "catalog"
+    "dapr.io/app-port"  = 8080
+  }
+}
+
 resource "kubernetes_deployment" "misarch_catalog" {
   depends_on = [helm_release.misarch_catalog_db, helm_release.dapr]
   metadata {
@@ -35,7 +42,7 @@ resource "kubernetes_deployment" "misarch_catalog" {
       spec {
 
         container {
-          image             = "ghcr.io/misarch/catalog:${var.CATALOG_VERSION}"
+          image             = "ghcr.io/misarch/catalog:${var.MISARCH_CATALOG_VERSION}"
           image_pull_policy = "Always"
 
           name = "misarch-catalog"
