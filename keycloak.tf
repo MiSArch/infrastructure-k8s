@@ -2,7 +2,7 @@ resource "helm_release" "keycloak" {
   name       = "keycloak"
   repository = "oci://registry-1.docker.io/bitnamicharts"
   chart      = "keycloak"
-  namespace  = kubernetes_namespace.misarch.metadata[0].name
+  namespace  = local.namespace
 
   values = [
     <<-EOF
