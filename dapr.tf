@@ -20,7 +20,7 @@ resource "helm_release" "redis" {
 
 resource "kubectl_manifest" "dapr_state_config" {
   depends_on = [kubernetes_namespace.misarch]
-  yaml_body = <<-EOF
+  yaml_body  = <<-EOF
   apiVersion:  "dapr.io/v1alpha1"
   kind: "Component"
   metadata:
@@ -41,7 +41,7 @@ resource "kubectl_manifest" "dapr_state_config" {
 
 resource "kubectl_manifest" "dapr_pubsub_config" {
   depends_on = [kubernetes_namespace.misarch]
-  yaml_body = <<-EOF
+  yaml_body  = <<-EOF
   apiVersion:  "dapr.io/v1alpha1"
   kind: "Component"
   metadata:

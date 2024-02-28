@@ -1,10 +1,3 @@
-locals {
-  misarch_catalog_specific_annotations = {
-    "dapr.io/app-id"    = "catalog"
-    "dapr.io/app-port"  = 8080
-  }
-}
-
 resource "kubernetes_deployment" "misarch_catalog" {
   depends_on = [helm_release.misarch_catalog_db, helm_release.dapr]
   metadata {
@@ -30,13 +23,7 @@ resource "kubernetes_deployment" "misarch_catalog" {
         labels = {
           app = "misarch-catalog"
         }
-        annotations = {
-          "dapr.io/enabled"   = true
-          "dapr.io/app-id"    = "catalog"
-          "dapr.io/app-port"  = 8080
-          "dapr.io/http-port" = 3500
-          "dapr.io/config"    = "/config.yaml",
-        }
+        annotations = merge(var.BASE_MISARCH_ANNOTATIONS, var.MISARCH_CATALOG_SPECIFIC_ANNOTATIONS)
       }
 
       spec {
