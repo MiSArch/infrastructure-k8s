@@ -1,6 +1,6 @@
-variable "MISARCH_CATALOG_VERSION" {
+variable "POSTGRES_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "16"
 }
 
 variable "KEYCLOAK_VERSION" {
@@ -15,6 +15,11 @@ variable "KEYCLOAK_ADMIN_PASSWORD" {
 }
 
 variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_CATALOG_VERSION" {
   type    = string
   default = "v0.0.1"
 }
