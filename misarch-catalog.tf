@@ -36,12 +36,12 @@ resource "kubernetes_deployment" "misarch_catalog" {
 
           resources {
             limits = {
-              cpu    = "0.5"
-              memory = "1500Mi"
+              cpu    = "500m"
+              memory = "1200Mi"
             }
             requests = {
-              cpu    = "0.15"
-              memory = "500Mi"
+              cpu    = "100m"
+              memory = "400Mi"
             }
           }
 
@@ -67,18 +67,15 @@ resource "kubernetes_deployment" "misarch_catalog" {
 
           env {
             name  = "SPRING_R2DBC_PASSWORD"
-            value = "test"
-            #value = random_password.misarch_catalog_db_password.result
+            value = random_password.misarch_catalog_db_password.result
           }
 
-          liveness_probe {
-            http_get {
-              path = "/graphiql"
-              port = 8080
-
-            }
-          }
-
+          # liveness_probe {
+          #   http_get {
+          #     path = "/graphiql"
+          #     port = 8080
+          #   }
+          # }
         }
       }
     }

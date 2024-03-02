@@ -24,23 +24,23 @@ locals {
   db_port = 5432
 }
 locals {
-  // The Helm chart always appends '-postgresql', so we need to add it to the URL too
-  address_db_full_service_name      = "${local.address_db_service_name}-postgresql"
-  catalog_db_full_service_name      = "${local.catalog_db_service_name}-postgresql"
-  discount_db_full_service_name     = "${local.discount_db_service_name}-postgresql"
-  inventory_db_full_service_name    = "${local.inventory_db_service_name}-postgresql"
-  invoice_db_full_service_name      = "${local.invoice_db_service_name}-postgresql"
-  media_db_full_service_name        = "${local.media_db_service_name}-postgresql"
-  notification_db_full_service_name = "${local.notification_db_service_name}-postgresql"
-  order_db_full_service_name        = "${local.order_db_service_name}-postgresql"
-  payment_db_full_service_name      = "${local.payment_db_service_name}-postgresql"
-  review_db_full_service_name       = "${local.review_db_service_name}-postgresql"
-  return_db_full_service_name       = "${local.return_db_service_name}-postgresql"
-  shipment_db_full_service_name     = "${local.shipment_db_service_name}-postgresql"
-  shoppingcart_db_full_service_name = "${local.shoppingcart_db_service_name}-postgresql"
-  tax_db_full_service_name          = "${local.tax_db_service_name}-postgresql"
-  user_db_full_service_name         = "${local.user_db_service_name}-postgresql"
-  wishlist_db_full_service_name     = "${local.wishlist_db_service_name}-postgresql"
+  // The Postgresql HA Helm chart always appends '-postgresql', so we would need to add it to the URL too, if we switched to it
+  address_db_full_service_name      = "${local.address_db_service_name}" # "${local.address_db_service_name}-postgresql"
+  catalog_db_full_service_name      = "${local.catalog_db_service_name}"
+  discount_db_full_service_name     = "${local.discount_db_service_name}"
+  inventory_db_full_service_name    = "${local.inventory_db_service_name}"
+  invoice_db_full_service_name      = "${local.invoice_db_service_name}"
+  media_db_full_service_name        = "${local.media_db_service_name}"
+  notification_db_full_service_name = "${local.notification_db_service_name}"
+  order_db_full_service_name        = "${local.order_db_service_name}"
+  payment_db_full_service_name      = "${local.payment_db_service_name}"
+  review_db_full_service_name       = "${local.review_db_service_name}"
+  return_db_full_service_name       = "${local.return_db_service_name}"
+  shipment_db_full_service_name     = "${local.shipment_db_service_name}"
+  shoppingcart_db_full_service_name = "${local.shoppingcart_db_service_name}"
+  tax_db_full_service_name          = "${local.tax_db_service_name}"
+  user_db_full_service_name         = "${local.user_db_service_name}"
+  wishlist_db_full_service_name     = "${local.wishlist_db_service_name}"
 }
 
 locals {
