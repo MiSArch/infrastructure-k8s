@@ -21,7 +21,10 @@ locals {
   user_db_service_name         = "user-db"
   wishlist_db_service_name     = "wishlist-db"
 
+  otel_collector_service_name = "otel-collector"
+
   db_port = 5432
+  otel_collector_port = 4317
 }
 locals {
   // The Postgresql HA Helm chart always appends '-postgresql', so we would need to add it to the URL too, if we switched to it
@@ -41,6 +44,8 @@ locals {
   tax_db_full_service_name          = "${local.tax_db_service_name}"
   user_db_full_service_name         = "${local.user_db_service_name}"
   wishlist_db_full_service_name     = "${local.wishlist_db_service_name}"
+
+  otel_collector_full_service_name = "${local.otel_collector_service_name}-opentelemetry-collector"
 }
 
 locals {
@@ -60,4 +65,6 @@ locals {
   tax_db_url          = "${local.tax_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
   user_db_url         = "${local.user_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
   wishlist_db_url     = "${local.wishlist_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
+
+  otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }

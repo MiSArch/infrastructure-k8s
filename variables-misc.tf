@@ -17,3 +17,7 @@ variable "MISARCH_DB_DATABASE" {
   type    = string
   default = "misarch"
 }
+
+locals {
+  dapr_general_config_name = "dapr-config"
+}

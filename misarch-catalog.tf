@@ -23,7 +23,7 @@ resource "kubernetes_deployment" "misarch_catalog" {
         labels = {
           app = "misarch-catalog"
         }
-        annotations = merge(var.BASE_MISARCH_ANNOTATIONS, var.MISARCH_CATALOG_SPECIFIC_ANNOTATIONS)
+        annotations = merge(local.base_misarch_annotations, local.misarch_catalog_specific_annotations)
       }
 
       spec {
