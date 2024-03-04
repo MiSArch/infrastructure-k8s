@@ -10,6 +10,6 @@ When you add a new service, you need to copy and adapt the following things:
 1. a DB in `dbs.tf` if necessary
 1. a password and output in `passwords.tf` if necessary
 1. service specific annotations in `variables-annotations`
-1. service specific labels in `variables-annotations`
+1. service specific labels in `variables-labels`
 1. service specific URLs in `variables-urls`
 
