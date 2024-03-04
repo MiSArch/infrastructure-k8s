@@ -1,5 +1,5 @@
 resource "helm_release" "misarch_catalog_db" {
-  name       = "catalog-db"
+  name       = local.catalog_db_service_name
   repository = "oci://registry-1.docker.io/bitnamicharts"
   chart      = "postgresql"
   namespace  = local.namespace
