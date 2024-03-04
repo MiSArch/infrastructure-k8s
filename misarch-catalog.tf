@@ -2,10 +2,8 @@ resource "kubernetes_deployment" "misarch_catalog" {
   depends_on = [helm_release.misarch_catalog_db, helm_release.dapr]
   metadata {
 
-    name = "misarch-catalog"
-    labels = {
-      app = "misarch-catalog"
-    }
+    name      = local.misarch_catalog_service_name
+    labels    = merge(local.base_misarch_labels, local.misarch_catalog_specific_labels)
     namespace = local.namespace
   }
 
@@ -14,15 +12,13 @@ resource "kubernetes_deployment" "misarch_catalog" {
 
     selector {
       match_labels = {
-        app = "misarch-catalog"
+        app = local.misarch_catalog_service_name
       }
     }
 
     template {
       metadata {
-        labels = {
-          app = "misarch-catalog"
-        }
+        labels      = merge(local.base_misarch_labels, local.misarch_catalog_specific_labels)
         annotations = merge(local.base_misarch_annotations, local.misarch_catalog_specific_annotations)
       }
 
@@ -32,7 +28,7 @@ resource "kubernetes_deployment" "misarch_catalog" {
           image             = "ghcr.io/misarch/catalog:${var.MISARCH_CATALOG_VERSION}"
           image_pull_policy = "Always"
 
-          name = "misarch-catalog"
+          name = local.misarch_catalog_service_name
 
           resources {
             limits = {
