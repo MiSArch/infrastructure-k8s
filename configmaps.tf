@@ -74,12 +74,7 @@ resource "kubernetes_config_map" "misarch_inventory_env_vars" {
     namespace = local.namespace
   }
 
-  data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.inventory_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.inventory_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_inventory_db_password.result
-  }
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_invoice_env_vars" {
@@ -130,12 +125,7 @@ resource "kubernetes_config_map" "misarch_order_env_vars" {
     namespace = local.namespace
   }
 
-  data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.order_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.order_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_order_db_password.result
-  }
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_payment_env_vars" {
@@ -144,12 +134,7 @@ resource "kubernetes_config_map" "misarch_payment_env_vars" {
     namespace = local.namespace
   }
 
-  data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.payment_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.payment_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_payment_db_password.result
-  }
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_review_env_vars" {
@@ -158,12 +143,7 @@ resource "kubernetes_config_map" "misarch_review_env_vars" {
     namespace = local.namespace
   }
 
-  data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.review_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.review_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_review_db_password.result
-  }
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_return_env_vars" {
@@ -200,12 +180,7 @@ resource "kubernetes_config_map" "misarch_shoppingcart_env_vars" {
     namespace = local.namespace
   }
 
-  data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.shoppingcart_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.shoppingcart_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_shoppingcart_db_password.result
-  }
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_tax_env_vars" {
@@ -242,11 +217,6 @@ resource "kubernetes_config_map" "misarch_wishlist_env_vars" {
     namespace = local.namespace
   }
 
-  data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.wishlist_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.wishlist_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_wishlist_db_password.result
-  }
+  data = {}
 }
 
