@@ -3,6 +3,7 @@ variable "ROOT_DOMAIN" {
   description = "Full URL the instance will be published on. Should not have a trailing slash."
 }
 
+// DBs
 locals {
   address_db_service_name      = "address-db"
   catalog_db_service_name      = "catalog-db"
@@ -20,12 +21,37 @@ locals {
   tax_db_service_name          = "tax-db"
   user_db_service_name         = "user-db"
   wishlist_db_service_name     = "wishlist-db"
+}
+
+// Services
+locals {
+  misarch_address_service_name      = "misarch-address"
+  misarch_catalog_service_name      = "misarch-catalog"
+  misarch_discount_service_name     = "misarch-discount"
+  misarch_inventory_service_name    = "misarch-inventory"
+  misarch_invoice_service_name      = "misarch-invoice"
+  misarch_media_service_name        = "misarch-media"
+  misarch_notification_service_name = "misarch-notification"
+  misarch_order_service_name        = "misarch-order"
+  misarch_payment_service_name      = "misarch-payment"
+  misarch_review_service_name       = "misarch-review"
+  misarch_return_service_name       = "misarch-return"
+  misarch_shipment_service_name     = "misarch-shipment"
+  misarch_shoppingcart_service_name = "misarch-shoppingcart"
+  misarch_tax_service_name          = "misarch-tax"
+  misarch_user_service_name         = "misarch-user"
+  misarch_wishlist_service_name     = "misarch-wishlist"
 
   otel_collector_service_name = "otel-collector"
+}
 
+// Ports
+locals {
   db_port             = 5432
   otel_collector_port = 4317
 }
+
+// DB Addresses
 locals {
   // The Postgresql HA Helm chart always appends '-postgresql', so we would need to add it to the URL too, if we switched to it
   address_db_full_service_name      = local.address_db_service_name # "${local.address_db_service_name}-postgresql"
@@ -48,6 +74,7 @@ locals {
   otel_collector_full_service_name = "${local.otel_collector_service_name}-opentelemetry-collector"
 }
 
+// Full DB URLs
 locals {
   address_db_url      = "${local.address_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
   catalog_db_url      = "${local.catalog_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
