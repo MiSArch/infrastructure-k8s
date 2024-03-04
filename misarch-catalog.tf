@@ -56,11 +56,6 @@ resource "kubernetes_deployment" "misarch_catalog" {
           }
 
           env {
-            name  = "SPRING_PROFILES_ACTIVE"
-            value = "dev"
-          }
-
-          env {
             name  = "SPRING_R2DBC_USERNAME"
             value = var.MISARCH_DB_USER
           }

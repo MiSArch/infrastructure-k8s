@@ -4,6 +4,19 @@
 
 This repository contains the Terraform scripts responsible for orchestrating the deployment of the Misarch Platform on a Kubernetes cluster.
 
+## Deploying
+
+Initially, run
+```sh
+terraform init
+```
+once.
+
+Afterwards, you can set up the cluster using
+```sh
+terraform apply
+```
+
 ## Deployment Approach
 
 ### Terraform and State Management
