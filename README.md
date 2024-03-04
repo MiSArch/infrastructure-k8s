@@ -39,6 +39,10 @@ kubectl -n misarch rollout restart deployment
 kubectl -n misarch rollout restart statefulset
 ```
 
+## Adding a new service
+
+See [the docs](https://misarch.github.io/docs/docs/dev-manuals/kubernetes/adding-a-new-service).
+
 ## Deployment Approach
 
 ### Terraform and State Management
@@ -106,6 +110,5 @@ It is not intended for productive use in the slightest.
 - **Disappearing Dapr Sidecars**: If Dapr sidecars disappear, causing communication to stop working in the cluster, try restarting the affected deployments.
 - **Schema Changes in Services**: If there are schema changes in individual services without changes in the gateway code, a restart of the gateway deployment is required.
 - **\<x\> exists already**: When canceling a previous `terraform apply` and re-running `terraform apply`, this error can occur. It means that `terraform` sees state outside of its control. In this case, you have two options: `terraform refresh` may help sometimes. If it does not help, delete the component and try again. In the worst case, execute `kubectl delete namespaces misarch` (or whatever you named your namespace) and try again. We know it's weird, but it seems to be caused by Terraforms design.
-- 
 
 Hint: For easier management and debugging, it helps to use a Kubernetes management UI like Lens to connect to the cluster, restart deployments or setup port forwarding.
