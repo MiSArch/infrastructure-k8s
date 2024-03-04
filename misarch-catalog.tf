@@ -45,24 +45,15 @@ resource "kubernetes_deployment" "misarch_catalog" {
             }
           }
 
-          env {
-            name  = "SPRING_R2DBC_URL"
-            value = "r2dbc:postgresql://${local.catalog_db_url}/${var.MISARCH_DB_DATABASE}"
+          env_from {
+            config_map_ref {
+              name = local.misarch_base_env_vars_configmap
+            }
           }
-
-          env {
-            name  = "SPRING_FLYWAY_URL"
-            value = "jdbc:postgresql://${local.catalog_db_url}/${var.MISARCH_DB_DATABASE}"
-          }
-
-          env {
-            name  = "SPRING_R2DBC_USERNAME"
-            value = var.MISARCH_DB_USER
-          }
-
-          env {
-            name  = "SPRING_R2DBC_PASSWORD"
-            value = random_password.misarch_catalog_db_password.result
+          env_from {
+            config_map_ref {
+              name = local.misarch_catalog_env_vars_configmap
+            }
           }
         }
       }
