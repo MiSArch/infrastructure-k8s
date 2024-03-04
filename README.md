@@ -17,6 +17,19 @@ Afterwards, you can set up the cluster using
 terraform apply
 ```
 
+## Accessing DB Passwords
+
+All generated DB passwords can be retrieved by calling
+```sh
+terraform output misarch_${service_name_lowercased}_db_password
+```
+so for example
+```sh
+terraform output misarch_catalog_db_password
+# Or
+terraform output misarch_shoppingcart_db_password
+```
+
 ## Deployment Approach
 
 ### Terraform and State Management
