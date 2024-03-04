@@ -1,9 +1,4 @@
 // Passwords
-resource "random_password" "redis" {
-  length  = 32
-  special = false
-}
-
 resource "random_password" "keycloak_db_password" {
   length  = 32
   special = false
@@ -89,6 +84,11 @@ resource "random_password" "misarch_wishlist_db_password" {
   special = false
 }
 
+resource "random_password" "redis" {
+  length  = 32
+  special = false
+}
+
 
 
 
@@ -96,6 +96,11 @@ resource "random_password" "misarch_wishlist_db_password" {
 
 
 
+
+output "keycloak_db_password" {
+  value = random_password.keycloak_db_password.result
+  sensitive = true
+}
 
 output "misarch_address_db_password" {
   value = random_password.misarch_address_db_password.result
@@ -174,6 +179,11 @@ output "misarch_user_db_password" {
 
 output "misarch_wishlist_db_password" {
   value = random_password.misarch_wishlist_db_password.result
+  sensitive = true
+}
+
+output "redis_password" {
+  value = random_password.redis.result
   sensitive = true
 }
 
