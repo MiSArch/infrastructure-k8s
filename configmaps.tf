@@ -4,6 +4,8 @@ locals {
   misarch_address_env_vars_configmap      = "misarch-address-env-vars"
   misarch_catalog_env_vars_configmap      = "misarch-catalog-env-vars"
   misarch_discount_env_vars_configmap     = "misarch-discount-env-vars"
+  misarch_frontend_env_vars_configmap     = "misarch-frontend-env-vars"
+  misarch_gateway_env_vars_configmap      = "misarch-gateway-env-vars"
   misarch_inventory_env_vars_configmap    = "misarch-inventory-env-vars"
   misarch_invoice_env_vars_configmap      = "misarch-invoice-env-vars"
   misarch_media_env_vars_configmap        = "misarch-media-env-vars"
@@ -65,6 +67,28 @@ resource "kubernetes_config_map" "misarch_discount_env_vars" {
     "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.discount_db_url}/${var.MISARCH_DB_DATABASE}"
     "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
     "SPRING_R2DBC_PASSWORD" = random_password.misarch_discount_db_password.result
+  }
+}
+
+resource "kubernetes_config_map" "misarch_frontend_env_vars" {
+  metadata {
+    name      = local.misarch_frontend_env_vars_configmap
+    namespace = local.namespace
+  }
+
+  data = {
+    "GATEWAY_ENDPOINT" = local.dapr_misarch_gateway_url
+  }
+}
+
+resource "kubernetes_config_map" "misarch_gateway_env_vars" {
+  metadata {
+    name      = local.misarch_gateway_env_vars_configmap
+    namespace = local.namespace
+  }
+
+  data = {
+    "NODE_ENV" = "production"
   }
 }
 

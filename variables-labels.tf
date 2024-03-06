@@ -11,6 +11,12 @@ locals {
   misarch_discount_specific_labels = {
     app = local.misarch_discount_service_name
   }
+  misarch_frontend_specific_labels = {
+    app = local.misarch_frontend_service_name
+  }
+  misarch_gateway_specific_labels = {
+    app = local.misarch_gateway_service_name
+  }
   misarch_inventory_specific_labels = {
     app = local.misarch_inventory_service_name
   }

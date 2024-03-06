@@ -5,7 +5,7 @@ variable "POSTGRES_VERSION" {
 
 variable "KEYCLOAK_VERSION" {
   type    = string
-  default = "23.0"
+  default = "23.0.6"
 }
 
 variable "KEYCLOAK_ADMIN_PASSWORD" {
@@ -16,40 +16,15 @@ variable "KEYCLOAK_ADMIN_PASSWORD" {
 
 variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
   type    = string
+  default = "v0.0.2"
+}
+
+variable "MISARCH_ADDRESS_VERSION" {
+  type    = string
   default = "v0.0.1"
 }
 
 variable "MISARCH_CATALOG_VERSION" {
-  type    = string
-  default = "v0.0.1"
-}
-
-variable "MISARCH_REVIEW_VERSION" {
-  type    = string
-  default = "v0.0.1"
-}
-
-variable "MISARCH_WISHLIST_VERSION" {
-  type    = string
-  default = "v0.0.1"
-}
-
-variable "MISARCH_SHOPPINGCART_VERSION" {
-  type    = string
-  default = "v0.0.1"
-}
-
-variable "MISARCH_INVENTORY_VERSION" {
-  type    = string
-  default = "v0.0.1"
-}
-
-variable "MISARCH_MEDIA_VERSION" {
-  type    = string
-  default = "v0.0.1"
-}
-
-variable "MISARCH_TAX_VERSION" {
   type    = string
   default = "v0.0.1"
 }
@@ -59,7 +34,27 @@ variable "MISARCH_DISCOUNT_VERSION" {
   default = "v0.0.1"
 }
 
-variable "MISARCH_USER_VERSION" {
+variable "MISARCH_FRONTEND_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_GATEWAY_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_INVENTORY_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_INVOICE_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_MEDIA_VERSION" {
   type    = string
   default = "v0.0.1"
 }
@@ -74,7 +69,7 @@ variable "MISARCH_ORDER_VERSION" {
   default = "v0.0.1"
 }
 
-variable "MISARCH_ADDRESS_VERSION" {
+variable "MISARCH_PAYMENT_VERSION" {
   type    = string
   default = "v0.0.1"
 }
@@ -84,7 +79,7 @@ variable "MISARCH_RETURN_VERSION" {
   default = "v0.0.1"
 }
 
-variable "MISARCH_INVOICE_VERSION" {
+variable "MISARCH_REVIEW_VERSION" {
   type    = string
   default = "v0.0.1"
 }
@@ -94,7 +89,22 @@ variable "MISARCH_SHIPMENT_VERSION" {
   default = "v0.0.1"
 }
 
-variable "MISARCH_PAYMENT_VERSION" {
+variable "MISARCH_SHOPPINGCART_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_TAX_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_USER_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_WISHLIST_VERSION" {
   type    = string
   default = "v0.0.1"
 }

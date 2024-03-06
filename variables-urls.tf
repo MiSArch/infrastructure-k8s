@@ -28,6 +28,8 @@ locals {
   misarch_address_service_name      = "misarch-address"
   misarch_catalog_service_name      = "misarch-catalog"
   misarch_discount_service_name     = "misarch-discount"
+  misarch_frontend_service_name     = "misarch-frontend"
+  misarch_gateway_service_name      = "misarch-gateway"
   misarch_inventory_service_name    = "misarch-inventory"
   misarch_invoice_service_name      = "misarch-invoice"
   misarch_media_service_name        = "misarch-media"
@@ -49,6 +51,7 @@ locals {
 locals {
   db_port             = 5432
   otel_collector_port = 4317
+  dapr_port           = 3500
 }
 
 // DB Addresses
@@ -94,4 +97,11 @@ locals {
   wishlist_db_url     = "${local.wishlist_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
 
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
+  dapr_url           = "http://localhost:${local.dapr_port}"
+}
+
+
+// GraphQL URLs
+locals {
+  dapr_misarch_gateway_url = "${local.dapr_url}/v1.0/invoke/gateway/method/graphql"
 }
