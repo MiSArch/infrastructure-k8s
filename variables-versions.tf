@@ -5,7 +5,7 @@ variable "POSTGRES_VERSION" {
 
 variable "KEYCLOAK_VERSION" {
   type    = string
-  default = "23.0.6"
+  default = "23.0.3"
 }
 
 variable "KEYCLOAK_ADMIN_PASSWORD" {
