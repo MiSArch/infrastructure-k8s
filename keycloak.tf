@@ -86,5 +86,3 @@ resource "kubernetes_config_map" "misarch_keycloak_realm_config" {
     "misarch-realm.json" = file("keycloak/keycloak-realm-template.json")
   }
 }
-
-

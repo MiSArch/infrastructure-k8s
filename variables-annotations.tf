@@ -19,6 +19,14 @@ locals {
     "dapr.io/app-id"   = "discount"
     "dapr.io/app-port" = 8080
   }
+  misarch_frontend_specific_annotations = {
+    "dapr.io/app-id"   = "frontend"
+    "dapr.io/app-port" = 80
+  }
+  misarch_gateway_specific_annotations = {
+    "dapr.io/app-id"   = "gateway"
+    "dapr.io/app-port" = 8080
+  }
   misarch_inventory_specific_annotations = {
     "dapr.io/app-id"   = "inventory"
     "dapr.io/app-port" = 8080
