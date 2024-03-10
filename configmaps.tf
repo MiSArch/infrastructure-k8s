@@ -1,6 +1,7 @@
 locals {
   misarch_base_env_vars_configmap = "misarch-base-env-vars"
 
+  keycloak_env_vars_configmap             = "keycloak-custom-env-vars"
   misarch_address_env_vars_configmap      = "misarch-address-env-vars"
   misarch_catalog_env_vars_configmap      = "misarch-catalog-env-vars"
   misarch_discount_env_vars_configmap     = "misarch-discount-env-vars"
@@ -25,6 +26,18 @@ resource "kubernetes_config_map" "base_misarch_env_vars" {
   metadata {
     name      = local.misarch_base_env_vars_configmap
     namespace = local.namespace
+  }
+}
+
+resource "kubernetes_config_map" "keycloak_env_vars" {
+  metadata {
+    name      = local.keycloak_env_vars_configmap
+    namespace = local.namespace
+  }
+
+  data = {
+    "KC_HOSTNAME_STRICT"  = "false"
+    "KEYCLOAK_EXTRA_ARGS" = "--import-realm"
   }
 }
 

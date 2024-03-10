@@ -5,7 +5,7 @@ variable "POSTGRES_VERSION" {
 
 variable "KEYCLOAK_VERSION" {
   type    = string
-  default = "23.0"
+  default = "23"
 }
 
 variable "KEYCLOAK_ADMIN_PASSWORD" {
@@ -16,7 +16,7 @@ variable "KEYCLOAK_ADMIN_PASSWORD" {
 
 variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
   type    = string
-  default = "v0.0.2"
+  default = "v0.0.4"
 }
 
 variable "MISARCH_ADDRESS_VERSION" {
