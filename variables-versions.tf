@@ -1,3 +1,13 @@
+variable "MONGODB_VERSION" {
+  type    = string
+  default = "6.0.5"
+}
+
+variable "MONGODB_OPERATOR_VERSION" {
+  type    = string
+  default = "0.9.0"
+}
+
 variable "POSTGRES_VERSION" {
   type    = string
   default = "16"
