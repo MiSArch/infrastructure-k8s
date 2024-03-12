@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "misarch_notification" {
-  depends_on = [helm_release.misarch_notification_db, helm_release.dapr]
+  depends_on = [helm_release.misarch_notification_db, terraform_data.dapr]
   metadata {
 
     name      = local.misarch_notification_service_name

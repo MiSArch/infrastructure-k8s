@@ -1,25 +1,35 @@
+resource "helm_release" "redis" {
+  depends_on = [kubernetes_namespace.misarch]
+  name       = "redis"
+  repository = "https://charts.bitnami.com/bitnami"
+  chart      = "redis"
+  namespace  = local.namespace
+
+  values = [
+  <<-EOF
+  auth:
+    password: "${random_password.redis.result}"
+  # Everything depends on redis being ready quickly, so decrease the preset timelimit and rather let it fail a few times to save some setup time
+  master:
+    readinessProbe:
+      initialDelaySeconds: 10
+  slave:
+    readinessProbe:
+      initialDelaySeconds: 10
+  EOF
+  ]
+}
+
 resource "helm_release" "dapr" {
+  depends_on = [helm_release.redis]
   name       = "dapr"
   repository = "https://dapr.github.io/helm-charts"
   chart      = "dapr"
   namespace  = local.namespace
 }
 
-
-resource "helm_release" "redis" {
-  name       = "redis"
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "redis"
-  namespace  = local.namespace
-
-  set {
-    name  = "auth.password"
-    value = random_password.redis.result
-  }
-}
-
 resource "kubectl_manifest" "dapr_state_config" {
-  depends_on = [kubernetes_namespace.misarch, helm_release.dapr]
+  depends_on = [helm_release.dapr]
   yaml_body  = <<-EOF
   apiVersion:  "dapr.io/v1alpha1"
   kind: "Component"
@@ -40,7 +50,7 @@ resource "kubectl_manifest" "dapr_state_config" {
 }
 
 resource "kubectl_manifest" "dapr_pubsub_config" {
-  depends_on = [kubernetes_namespace.misarch, helm_release.dapr]
+  depends_on = [helm_release.dapr]
   yaml_body  = <<-EOF
   apiVersion:  "dapr.io/v1alpha1"
   kind: "Component"
@@ -61,7 +71,7 @@ resource "kubectl_manifest" "dapr_pubsub_config" {
 }
 
 resource "kubectl_manifest" "dapr_config" {
-  depends_on = [kubernetes_namespace.misarch, helm_release.dapr]
+  depends_on = [helm_release.dapr]
   yaml_body  = <<-EOF
     apiVersion: dapr.io/v1alpha1
     kind: Configuration
@@ -76,4 +86,9 @@ resource "kubectl_manifest" "dapr_config" {
           protocol: grpc
           isSecure: false
   EOF
+}
+
+// Pseudo resource so that all services can simply depend on this resource instead of the whole list ↓
+resource "terraform_data" "dapr" {
+  depends_on = [helm_release.dapr, kubectl_manifest.dapr_config, kubectl_manifest.dapr_pubsub_config, kubectl_manifest.dapr_state_config]
 }

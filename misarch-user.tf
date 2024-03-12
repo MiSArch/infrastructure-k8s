@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "misarch_user" {
-  depends_on = [helm_release.misarch_user_db, helm_release.dapr]
+  depends_on = [helm_release.misarch_user_db, terraform_data.dapr]
   metadata {
 
     name      = local.misarch_user_service_name
