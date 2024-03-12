@@ -1,3 +1,4 @@
+/*
 locals {
   inventory_db_password_secret_name = "misarch-inventory-db-password"
 }
@@ -19,7 +20,7 @@ resource "helm_release" "mongodb_operator_inventory" {
     createResource: true
     database:
       name: "${local.inventory_db_service_name}" # Yes, this option is undocumented…
-      name: "${local.namespace}" # Yes, this option is undocumented…
+      namespace: "${local.namespace}" # Yes, this option is undocumented…
     resource:
       name: "${local.inventory_db_service_name}"
       users:
