@@ -208,6 +208,7 @@ resource "kubernetes_config_map" "misarch_shipment_env_vars" {
     "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.shipment_db_url}/${var.MISARCH_DB_DATABASE}"
     "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
     "SPRING_R2DBC_PASSWORD" = random_password.misarch_shipment_db_password.result
+    "MISARCH_SHIPMENT_PROVIDER_ENDPOINT" = "http://localhost/does-not-exist" # To who is responsible for creating the simulation service: We are waiting for the full service!
   }
 }
 
