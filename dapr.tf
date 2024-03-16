@@ -6,7 +6,7 @@ resource "helm_release" "redis" {
   namespace  = local.namespace
 
   values = [
-  <<-EOF
+    <<-EOF
   auth:
     password: "${random_password.redis.result}"
   # Everything depends on redis being ready quickly, so decrease the preset timelimit and rather let it fail a few times to save some setup time
