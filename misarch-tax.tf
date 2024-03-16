@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "misarch_tax" {
-  depends_on = [helm_release.misarch_tax_db, helm_release.dapr]
+  depends_on = [helm_release.misarch_tax_db, terraform_data.dapr]
   metadata {
 
     name      = local.misarch_tax_service_name

@@ -18,7 +18,8 @@ provider "helm" {
 }
 
 provider "kubectl" {
-  config_path = var.KUBERNETES_CONFIG_PATH
+  config_path       = var.KUBERNETES_CONFIG_PATH
+  apply_retry_count = 15 // There are some problems with (Dapr's) CRDs, so we need to retry requests for a bit
 }
 
 resource "kubernetes_namespace" "misarch" {

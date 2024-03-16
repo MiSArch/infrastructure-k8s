@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "misarch_address" {
-  depends_on = [helm_release.misarch_address_db, helm_release.dapr]
+  depends_on = [helm_release.misarch_address_db, terraform_data.dapr]
   metadata {
 
     name      = local.misarch_address_service_name

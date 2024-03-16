@@ -3,6 +3,7 @@ locals {
 }
 
 resource "helm_release" "keycloak" {
+  depends_on = [terraform_data.dapr]
   name       = "keycloak"
   repository = "oci://registry-1.docker.io/bitnamicharts"
   chart      = "keycloak"

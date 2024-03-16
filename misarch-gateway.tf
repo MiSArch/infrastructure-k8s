@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "misarch_gateway" {
-  depends_on = [helm_release.dapr]
+  depends_on = [terraform_data.dapr]
   metadata {
 
     name      = local.misarch_gateway_service_name
