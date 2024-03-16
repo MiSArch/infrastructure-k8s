@@ -16,6 +16,8 @@ Afterwards, you can set up the cluster using
 ```sh
 terraform apply
 ```
+repeatedly until the cluster is up.
+Prepare for a long journey, it may take up to 10 minutes.
 
 ## Accessing DB Passwords
 
