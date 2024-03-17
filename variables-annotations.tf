@@ -4,10 +4,10 @@ locals {
     "dapr.io/http-port" = "3500"
     "dapr.io/config"    = local.dapr_general_config_name
 
-    "dapr.io/sidecar-liveness-probe-threshold"      = 10
-    "dapr.io/sidecar-liveness-probe-delay-seconds"  = 10
-    "dapr.io/sidecar-readiness-probe-threshold"     = 10
-    "dapr.io/sidecar-readiness-probe-delay-seconds" = 10
+    "dapr.io/sidecar-liveness-probe-threshold"      = "10"
+    "dapr.io/sidecar-liveness-probe-delay-seconds"  = "10"
+    "dapr.io/sidecar-readiness-probe-threshold"     = "10"
+    "dapr.io/sidecar-readiness-probe-delay-seconds" = "10"
   }
 }
 
