@@ -1,12 +1,12 @@
 # Inventory Service
 resource "random_password" "mongodb_root_password_inventory" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "mongodb_replica_set_key_inventory" {
   length  = 32
-  special = true
+  special = false
 }
 
 output "mongodb_root_password_inventory" {
@@ -22,12 +22,12 @@ output "mongodb_replica_set_key_inventory" {
 # Invoice Service
 resource "random_password" "mongodb_root_password_invoice" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "mongodb_replica_set_key_invoice" {
   length  = 32
-  special = true
+  special = false
 }
 
 output "mongodb_root_password_invoice" {
@@ -43,12 +43,12 @@ output "mongodb_replica_set_key_invoice" {
 # Order Service
 resource "random_password" "mongodb_root_password_order" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "mongodb_replica_set_key_order" {
   length  = 32
-  special = true
+  special = false
 }
 
 output "mongodb_root_password_order" {
@@ -64,12 +64,12 @@ output "mongodb_replica_set_key_order" {
 # Payment Service
 resource "random_password" "mongodb_root_password_payment" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "mongodb_replica_set_key_payment" {
   length  = 32
-  special = true
+  special = false
 }
 
 output "mongodb_root_password_payment" {
@@ -85,12 +85,12 @@ output "mongodb_replica_set_key_payment" {
 # Review Service
 resource "random_password" "mongodb_root_password_review" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "mongodb_replica_set_key_review" {
   length  = 32
-  special = true
+  special = false
 }
 
 output "mongodb_root_password_review" {
@@ -106,12 +106,12 @@ output "mongodb_replica_set_key_review" {
 # ShoppingCart Service
 resource "random_password" "mongodb_root_password_shoppingcart" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "mongodb_replica_set_key_shoppingcart" {
   length  = 32
-  special = true
+  special = false
 }
 
 output "mongodb_root_password_shoppingcart" {
@@ -127,12 +127,12 @@ output "mongodb_replica_set_key_shoppingcart" {
 # Wishlist Service
 resource "random_password" "mongodb_root_password_wishlist" {
   length  = 32
-  special = true
+  special = false
 }
 
 resource "random_password" "mongodb_replica_set_key_wishlist" {
   length  = 32
-  special = true
+  special = false
 }
 
 output "mongodb_root_password_wishlist" {
