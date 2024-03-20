@@ -91,7 +91,7 @@ resource "kubernetes_config_map" "misarch_frontend_env_vars" {
 
   data = {
     "GATEWAY_ENDPOINT" = local.dapr_misarch_gateway_url
-    "KEYCLOAK_ENDPOINT" = local.keycloak_url
+    "KEYCLOAK_ENDPOINT" = "http://${local.keycloak_url}"
   }
 }
 
