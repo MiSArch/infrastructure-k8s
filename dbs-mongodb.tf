@@ -45,6 +45,8 @@ resource "kubernetes_secret" "mongodb_credentials_inventory" {
   }
 }
 
+/* Uncomment once our cluster is powerful enough to handle the remaining DBs
+
 # Invoice
 resource "helm_release" "misarch_invoice_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_invoice]
@@ -267,3 +269,4 @@ resource "kubernetes_secret" "mongodb_credentials_wishlist" {
   }
 }
 
+*/

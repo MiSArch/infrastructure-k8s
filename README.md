@@ -117,5 +117,6 @@ It is not intended for productive use in the slightest.
     - Dapr cannot be created successfully. Fix your Dapr configuration
     - Randomly at the end of `terraform apply` but the custom resources have been created: This is the best and worst case at the same time: It means that subsequent `terraform apply`s will most likely succeed. There seems to be a random chance that this "error" occurs when creating the cluster, but it has no effect as everything will be created regardless. However, it remains unclear as to why this error happens in the first place. If it does not work, destroy and re-setup your cluster a few times (highest count needed so far: 4), until it works.
 - **Invalid value for "path" parameter: no file exists at "keycloak/keycloak-realm-template.json"**: You need to clone this repo using `git clone --recurse-submodules`
+- **Nothing to do, 0 Resources to apply change and destroy**: Please set `TF_VAR_KUBERNETES_CONFIG_PATH`, i.e. through executing `. test-script.sh`
 
 Hint: For easier management and debugging, it helps to use a Kubernetes management UI like Lens to connect to the cluster, restart deployments or setup port forwarding.
