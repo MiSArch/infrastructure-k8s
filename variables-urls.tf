@@ -25,6 +25,8 @@ locals {
 
 // Services
 locals {
+  keycloak_service_name = "keycloak"
+
   misarch_address_service_name      = "misarch-address"
   misarch_catalog_service_name      = "misarch-catalog"
   misarch_discount_service_name     = "misarch-discount"
@@ -49,9 +51,10 @@ locals {
 
 // Ports
 locals {
-  db_port             = 5432
-  otel_collector_port = 4317
   dapr_port           = 3500
+  db_port             = 5432
+  keycloak_port       = 8080
+  otel_collector_port = 4317
 }
 
 // DB Addresses
@@ -95,9 +98,13 @@ locals {
   tax_db_url          = "${local.tax_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
   user_db_url         = "${local.user_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
   wishlist_db_url     = "${local.wishlist_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
+}
 
-  otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
+// Service URLs
+locals {
   dapr_url           = "http://localhost:${local.dapr_port}"
+  keycloak_url = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
+  otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }
 
 
