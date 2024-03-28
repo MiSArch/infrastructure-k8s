@@ -3,6 +3,13 @@
 ## Overview
 
 This repository contains the Terraform scripts responsible for orchestrating the deployment of the Misarch Platform on a Kubernetes cluster.
+Additional information on top can be found in the [documentation](https://misarch.github.io/docs/docs/dev-manuals/services/infrastructure-k8s).
+
+> [!WARNING] current progress
+> At the moment, the following things are missing in the Kubernetes deployment:
+> - querying keycloak results in a `502 Bad Gateway`
+> - MongoDB services have not been set up yet
+> - There is no predefined ingress at the moment
 
 ## Deploying
 
