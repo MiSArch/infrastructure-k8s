@@ -9,7 +9,7 @@ Additional information on top can be found in the [documentation](https://misarc
 > At the moment, the following things are missing in the Kubernetes deployment:
 > - querying keycloak results in a `502 Bad Gateway`
 > - MongoDB services have not been set up yet
-> - There is no predefined ingress at the moment
+> - There is no predefined ingress
 
 ## Deploying
 
