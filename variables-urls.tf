@@ -53,7 +53,7 @@ locals {
 locals {
   dapr_port           = 3500
   db_port             = 5432
-  keycloak_port       = 8080
+  keycloak_port       = 80
   otel_collector_port = 4317
 }
 
