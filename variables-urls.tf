@@ -103,7 +103,7 @@ locals {
 // Service URLs
 locals {
   dapr_url           = "http://localhost:${local.dapr_port}"
-  keycloak_url = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
+  keycloak_url       = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }
 

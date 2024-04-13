@@ -36,8 +36,8 @@ resource "kubernetes_config_map" "keycloak_env_vars" {
   }
 
   data = {
-    "KC_HOSTNAME_STRICT"  = "false"
-    "KEYCLOAK_EXTRA_ARGS" = "--import-realm"
+    "KC_HOSTNAME_STRICT"              = "false"
+    "KEYCLOAK_EXTRA_ARGS"             = "--import-realm"
     "QUARKUS_HTTP_ACCESS_LOG_ENABLED" = "true" // for easier debugging, can just as well be deleted
   }
 }
@@ -91,7 +91,7 @@ resource "kubernetes_config_map" "misarch_frontend_env_vars" {
   }
 
   data = {
-    "GATEWAY_ENDPOINT" = local.dapr_misarch_gateway_url
+    "GATEWAY_ENDPOINT"  = local.dapr_misarch_gateway_url
     "KEYCLOAK_ENDPOINT" = "http://${local.keycloak_url}"
   }
 }
@@ -206,10 +206,10 @@ resource "kubernetes_config_map" "misarch_shipment_env_vars" {
   }
 
   data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.shipment_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.shipment_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_shipment_db_password.result
+    "SPRING_R2DBC_URL"                   = "r2dbc:postgresql://${local.shipment_db_url}/${var.MISARCH_DB_DATABASE}"
+    "SPRING_FLYWAY_URL"                  = "jdbc:postgresql://${local.shipment_db_url}/${var.MISARCH_DB_DATABASE}"
+    "SPRING_R2DBC_USERNAME"              = var.MISARCH_DB_USER
+    "SPRING_R2DBC_PASSWORD"              = random_password.misarch_shipment_db_password.result
     "MISARCH_SHIPMENT_PROVIDER_ENDPOINT" = "http://localhost/does-not-exist" # To who is responsible for creating the simulation service: We are waiting for the full service!
   }
 }
