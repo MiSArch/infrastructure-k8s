@@ -25,6 +25,7 @@ locals {
 
 // Services
 locals {
+  ingress_name          = "misarch-ingress"
   keycloak_service_name = "keycloak"
 
   misarch_address_service_name      = "misarch-address"
@@ -54,6 +55,7 @@ locals {
   dapr_port           = 3500
   db_port             = 5432
   keycloak_port       = 80 # Okay, weird things are happening here: While keycloak runs under `8080`, the keycloak svc exposes port `80`. In other words, there is even an internal redirect happening here?
+  frontend_port       = 80
   otel_collector_port = 4317
 }
 
