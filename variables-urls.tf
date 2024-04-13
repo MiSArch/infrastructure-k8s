@@ -53,7 +53,7 @@ locals {
 locals {
   dapr_port           = 3500
   db_port             = 5432
-  keycloak_port       = 80
+  keycloak_port       = 80 # Okay, weird things are happening here: While keycloak runs under `8080`, the keycloak svc exposes port `80`. In other words, there is even an internal redirect happening here?
   otel_collector_port = 4317
 }
 
