@@ -1,7 +1,7 @@
 resource "kubernetes_ingress_v1" "misarch" {
   metadata {
-    name      = local.misarch_ingress_name
-    namespace = local.misarch_namespace
+    name      = local.ingress_name
+    namespace = local.namespace
     annotations = merge(local.base_misarch_annotations, local.misarch_ingress_annotations)
   }
 
