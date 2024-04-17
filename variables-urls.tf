@@ -53,7 +53,7 @@ locals {
 locals {
   dapr_port           = 3500
   db_port             = 5432
-  keycloak_port       = 8080
+  keycloak_port       = 80 # Okay, weird things are happening here: While keycloak runs under `8080`, the keycloak svc exposes port `80`. In other words, there is even an internal redirect happening here?
   otel_collector_port = 4317
 }
 
@@ -103,7 +103,7 @@ locals {
 // Service URLs
 locals {
   dapr_url           = "http://localhost:${local.dapr_port}"
-  keycloak_url = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
+  keycloak_url       = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }
 

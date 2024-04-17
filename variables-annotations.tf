@@ -1,8 +1,10 @@
 locals {
   base_misarch_annotations = {
-    "dapr.io/enabled"   = "true"
-    "dapr.io/http-port" = "3500"
-    "dapr.io/config"    = local.dapr_general_config_name
+    "dapr.io/enabled"               = "true"
+    "dapr.io/http-port"             = "3500"
+    "dapr.io/config"                = local.dapr_general_config_name
+    "dapr.io/log-level"             = "debug"
+    "dapr.io/http-read-buffer-size" = "20" # KB, apparently the default of 4KB is too small in our usecase
 
     "dapr.io/sidecar-liveness-probe-threshold"      = "10"
     "dapr.io/sidecar-liveness-probe-delay-seconds"  = "10"
