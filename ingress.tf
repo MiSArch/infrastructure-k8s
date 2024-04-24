@@ -32,3 +32,26 @@ resource "kubernetes_ingress_v1" "misarch" {
     }
   }
 }
+
+resource "kubernetes_service" "misarch_frontend_service" {
+  metadata {
+    name      = local.misarch_frontend_service_name
+    namespace = local.namespace
+    labels    = merge(local.base_misarch_labels, local.misarch_frontend_specific_labels)
+  }
+
+  spec {
+    selector = {
+      app = local.misarch_frontend_service_name
+    }
+
+    port {
+      protocol    = "TCP"
+      port        = local.frontend_port
+      target_port = local.frontend_port
+    }
+
+    type = "ClusterIP"
+  }
+}
+
