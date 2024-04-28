@@ -25,8 +25,7 @@ resource "helm_release" "keycloak" {
         username: "misarch"
         password: "${random_password.keycloak_db_password.result}"
         database: "misarch"
-    ingress:
-      hostname: "${var.ROOT_DOMAIN}"
+    httpRelativePath: "/keycloak/"
     metrics:
       enabled: true
     initContainers:
