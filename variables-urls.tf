@@ -53,53 +53,57 @@ locals {
 // Ports
 locals {
   dapr_port           = 3500
-  db_port             = 5432
   keycloak_port       = 80 # Okay, weird things are happening here: While keycloak runs under `8080`, the keycloak svc exposes port `80`. In other words, there is even an internal redirect happening here?
   frontend_port       = 80
+  mongo_db_port       = 27017
+  postgres_db_port    = 5432
   otel_collector_port = 4317
 }
 
 // DB Addresses
 locals {
+  // Postgres
   // The Postgresql HA Helm chart always appends '-postgresql', so we would need to add it to the URL too, if we switched to it
   address_db_full_service_name      = local.address_db_service_name # "${local.address_db_service_name}-postgresql"
   catalog_db_full_service_name      = local.catalog_db_service_name
   discount_db_full_service_name     = local.discount_db_service_name
-  inventory_db_full_service_name    = local.inventory_db_service_name
-  invoice_db_full_service_name      = local.invoice_db_service_name
   media_db_full_service_name        = local.media_db_service_name
   notification_db_full_service_name = local.notification_db_service_name
-  order_db_full_service_name        = local.order_db_service_name
-  payment_db_full_service_name      = local.payment_db_service_name
-  review_db_full_service_name       = local.review_db_service_name
   return_db_full_service_name       = local.return_db_service_name
   shipment_db_full_service_name     = local.shipment_db_service_name
-  shoppingcart_db_full_service_name = local.shoppingcart_db_service_name
   tax_db_full_service_name          = local.tax_db_service_name
   user_db_full_service_name         = local.user_db_service_name
-  wishlist_db_full_service_name     = local.wishlist_db_service_name
+
+  // MongoDB
+  inventory_db_full_service_name    = "${local.inventory_db_service_name}-headless"
+  invoice_db_full_service_name      = "${local.invoice_db_service_name}-headless"
+  order_db_full_service_name        = "${local.order_db_service_name}-headless"
+  payment_db_full_service_name      = "${local.payment_db_service_name}-headless"
+  review_db_full_service_name       = "${local.review_db_service_name}-headless"
+  shoppingcart_db_full_service_name = "${local.shoppingcart_db_service_name}-headless"
+  wishlist_db_full_service_name     = "${local.wishlist_db_service_name}-headless"
 
   otel_collector_full_service_name = "${local.otel_collector_service_name}-opentelemetry-collector"
 }
 
 // Full DB URLs
 locals {
-  address_db_url      = "${local.address_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  catalog_db_url      = "${local.catalog_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  discount_db_url     = "${local.discount_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  inventory_db_url    = "${local.inventory_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  invoice_db_url      = "${local.invoice_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  media_db_url        = "${local.media_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  notification_db_url = "${local.notification_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  order_db_url        = "${local.order_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  payment_db_url      = "${local.payment_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  review_db_url       = "${local.review_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  return_db_url       = "${local.return_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  shipment_db_url     = "${local.shipment_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  shoppingcart_db_url = "${local.shoppingcart_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  tax_db_url          = "${local.tax_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  user_db_url         = "${local.user_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
-  wishlist_db_url     = "${local.wishlist_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.db_port}"
+  address_db_url      = "${local.address_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  catalog_db_url      = "${local.catalog_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  discount_db_url     = "${local.discount_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  inventory_db_url    = "${local.inventory_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
+  invoice_db_url      = "${local.invoice_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  media_db_url        = "${local.media_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  notification_db_url = "${local.notification_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  order_db_url        = "${local.order_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
+  payment_db_url      = "${local.payment_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
+  review_db_url       = "${local.review_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
+  return_db_url       = "${local.return_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  shipment_db_url     = "${local.shipment_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  shoppingcart_db_url = "${local.shoppingcart_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
+  tax_db_url          = "${local.tax_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  user_db_url         = "${local.user_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  wishlist_db_url     = "${local.wishlist_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
 }
 
 // Service URLs

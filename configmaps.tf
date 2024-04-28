@@ -113,7 +113,9 @@ resource "kubernetes_config_map" "misarch_inventory_env_vars" {
     namespace = local.namespace
   }
 
-  data = {}
+  data = {
+    "DATABASE_URI" = "mongodb://${local.inventory_db_url}"
+  }
 }
 
 resource "kubernetes_config_map" "misarch_invoice_env_vars" {
