@@ -14,6 +14,11 @@ locals {
 }
 
 locals {
+  misarch_ingress_annotations = {
+    "kubernetes.io/ingress.class"                   = "nginx"
+    "nginx.ingress.kubernetes.io/proxy-body-size"   = "10m"
+    "nginx.ingress.kubernetes.io/proxy-buffer-size" = "10m"
+  }
   keycloak_specific_annotations = {
     "dapr.io/app-id"   = "keycloak"
     "dapr.io/app-port" = "8080" # '""' needed because of Helm
