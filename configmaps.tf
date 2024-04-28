@@ -125,10 +125,7 @@ resource "kubernetes_config_map" "misarch_invoice_env_vars" {
   }
 
   data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.invoice_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.invoice_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_invoice_db_password.result
+    "ME_CONFIG_MONGODB_URL" = "mongodb://${local.invoice_db_url}"
   }
 }
 
@@ -166,7 +163,9 @@ resource "kubernetes_config_map" "misarch_order_env_vars" {
     namespace = local.namespace
   }
 
-  data = {}
+  data = {
+    "ME_CONFIG_MONGODB_URL" = "mongodb://${local.order_db_url}"
+  }
 }
 
 resource "kubernetes_config_map" "misarch_payment_env_vars" {
@@ -175,7 +174,11 @@ resource "kubernetes_config_map" "misarch_payment_env_vars" {
     namespace = local.namespace
   }
 
-  data = {}
+  data = {
+    "DATABASE_URI" = "mongodb://${local.payment_db_url}"
+    "DATABASE_NAME" = var.MISARCH_DB_DATABASE
+    "SIMULATION_URL" = "http://${local.simulation_url}"
+  }
 }
 
 resource "kubernetes_config_map" "misarch_review_env_vars" {
@@ -184,7 +187,9 @@ resource "kubernetes_config_map" "misarch_review_env_vars" {
     namespace = local.namespace
   }
 
-  data = {}
+  data = {
+    "ME_CONFIG_MONGODB_URL" = "mongodb://${local.review_db_url}"
+  }
 }
 
 resource "kubernetes_config_map" "misarch_return_env_vars" {
@@ -222,7 +227,9 @@ resource "kubernetes_config_map" "misarch_shoppingcart_env_vars" {
     namespace = local.namespace
   }
 
-  data = {}
+  data = {
+    "ME_CONFIG_MONGODB_URL" = "mongodb://${local.shoppingcart_db_url}"
+  }
 }
 
 resource "kubernetes_config_map" "misarch_tax_env_vars" {
@@ -259,6 +266,8 @@ resource "kubernetes_config_map" "misarch_wishlist_env_vars" {
     namespace = local.namespace
   }
 
-  data = {}
+  data = {
+    "ME_CONFIG_MONGODB_URL" = "mongodb://${local.wishlist_db_url}"
+  }
 }
 

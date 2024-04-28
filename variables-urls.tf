@@ -43,6 +43,7 @@ locals {
   misarch_return_service_name       = "misarch-return"
   misarch_shipment_service_name     = "misarch-shipment"
   misarch_shoppingcart_service_name = "misarch-shoppingcart"
+  misarch_simulation_service_name   = "misarch-simulation"
   misarch_tax_service_name          = "misarch-tax"
   misarch_user_service_name         = "misarch-user"
   misarch_wishlist_service_name     = "misarch-wishlist"
@@ -55,6 +56,7 @@ locals {
   dapr_port           = 3500
   keycloak_port       = 80 # Okay, weird things are happening here: While keycloak runs under `8080`, the keycloak svc exposes port `80`. In other words, there is even an internal redirect happening here?
   frontend_port       = 80
+  simulation_port     = 8080
   mongo_db_port       = 27017
   postgres_db_port    = 5432
   otel_collector_port = 4317
@@ -110,6 +112,7 @@ locals {
 locals {
   dapr_url           = "http://localhost:${local.dapr_port}"
   keycloak_url       = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
+  simulation_url     = "${local.misarch_simulation_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.simulation_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }
 
