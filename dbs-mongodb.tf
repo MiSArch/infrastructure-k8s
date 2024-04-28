@@ -1,11 +1,11 @@
 locals {
-  inventory_db_secret_name = "mongodb-credentials-inventory"
-  invoice_db_secret_name   = "mongodb-credentials-invoice"
-  order_db_secret_name     = "mongodb-credentials-order"
-  payment_db_secret_name   = "mongodb-credentials-payment"
-  review_db_secret_name    = "mongodb-credentials-review"
+  inventory_db_secret_name    = "mongodb-credentials-inventory"
+  invoice_db_secret_name      = "mongodb-credentials-invoice"
+  order_db_secret_name        = "mongodb-credentials-order"
+  payment_db_secret_name      = "mongodb-credentials-payment"
+  review_db_secret_name       = "mongodb-credentials-review"
   shoppingcart_db_secret_name = "mongodb-credentials-shoppingcart"
-  wishlist_db_secret_name  = "mongodb-credentials-wishlist"
+  wishlist_db_secret_name     = "mongodb-credentials-wishlist"
 }
 
 # Inventory
@@ -39,9 +39,9 @@ resource "kubernetes_secret" "mongodb_credentials_inventory" {
   }
 
   data = {
-    "mongodb-root-password"     = random_password.mongodb_root_password_inventory.result
-    "mongodb-passwords"         = random_password.misarch_inventory_db_password.result
-    "mongodb-replica-set-key"   = random_password.mongodb_replica_set_key_inventory.result
+    "mongodb-root-password"   = random_password.mongodb_root_password_inventory.result
+    "mongodb-passwords"       = random_password.misarch_inventory_db_password.result
+    "mongodb-replica-set-key" = random_password.mongodb_replica_set_key_inventory.result
   }
 }
 
