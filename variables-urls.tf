@@ -66,7 +66,7 @@ locals {
   address_db_full_service_name      = local.address_db_service_name # "${local.address_db_service_name}-postgresql"
   catalog_db_full_service_name      = local.catalog_db_service_name
   discount_db_full_service_name     = local.discount_db_service_name
-  inventory_db_full_service_name    = local.inventory_db_service_name
+  inventory_db_full_service_name    = "${local.inventory_db_service_name}-headless"
   invoice_db_full_service_name      = local.invoice_db_service_name
   media_db_full_service_name        = local.media_db_service_name
   notification_db_full_service_name = local.notification_db_service_name
