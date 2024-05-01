@@ -81,7 +81,7 @@ variable "MISARCH_PAYMENT_VERSION" {
 
 variable "MISARCH_RETURN_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v0.0.2"
 }
 
 variable "MISARCH_REVIEW_VERSION" {
