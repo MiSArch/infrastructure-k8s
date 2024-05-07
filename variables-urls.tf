@@ -49,6 +49,7 @@ locals {
   misarch_user_service_name         = "misarch-user"
   misarch_wishlist_service_name     = "misarch-wishlist"
 
+  minio_service_name = … // TODO
   otel_collector_service_name = "otel-collector"
 }
 
@@ -87,6 +88,7 @@ locals {
   shoppingcart_db_full_service_name = "${local.shoppingcart_db_service_name}-headless"
   wishlist_db_full_service_name     = "${local.wishlist_db_service_name}-headless"
 
+  minio_full_service_name = local.minio_service_name
   otel_collector_full_service_name = "${local.otel_collector_service_name}-opentelemetry-collector"
 }
 
@@ -115,7 +117,8 @@ locals {
   dapr_url           = "http://localhost:${local.dapr_port}"
   keycloak_url       = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
   simulation_url     = "${local.misarch_simulation_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.simulation_port}"
-  minio_url     = "${local.misarch_media_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.minio_port}"
+
+  minio_url     = "${local.minio_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.minio_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }
 
