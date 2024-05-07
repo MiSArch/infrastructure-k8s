@@ -246,7 +246,14 @@ resource "kubernetes_config_map" "misarch_simulation_env_vars" {
     namespace = local.namespace
   }
 
-  data = {}
+  data = {
+    RABBITMQ_URL = "amqp://${local.rabbitmq_url}"
+    PAYMENTS_PER_MINUTE = var.MISARCH_SIMULATION_PAYMENTS_PER_MINUTE
+    SHIPMENTS_PER_MINUTE = var.MISARCH_SIMULATION_SHIPMENTS_PER_MINUTE
+    PROCESSING_TIME_SECONDS = var.MISARCH_SIMULATION_PROCESSING_TIME_SECONDS
+    PAYMENT_URL = "http://${local.payment_url}"
+    SHIPMENT_URL = "http://${local.shipment_url}"
+  }
 }
 
 resource "kubernetes_config_map" "misarch_tax_env_vars" {
