@@ -148,6 +148,7 @@ resource "kubernetes_config_map" "misarch_media_env_vars" {
 
   data = {
     MINIO_ENDPOINT = "http://${local.minio_url}"
+    MONGODB_URI = "mongodb://${local.media_db_url}"
   }
 }
 
