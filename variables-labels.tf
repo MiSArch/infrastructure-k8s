@@ -11,6 +11,9 @@ locals {
   misarch_discount_specific_labels = {
     app = local.misarch_discount_service_name
   }
+  misarch_experiment_config_specific_labels = {
+    app = local.misarch_experiment_config_service_name
+  }
   misarch_frontend_specific_labels = {
     app = local.misarch_frontend_service_name
   }
@@ -46,6 +49,9 @@ locals {
   }
   misarch_shoppingcart_specific_labels = {
     app = local.misarch_shoppingcart_service_name
+  }
+  misarch_simulation_specific_labels = {
+    app = local.misarch_simulation_service_name
   }
   misarch_tax_specific_labels = {
     app = local.misarch_tax_service_name

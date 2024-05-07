@@ -5,6 +5,7 @@ locals {
   misarch_address_env_vars_configmap      = "misarch-address-env-vars"
   misarch_catalog_env_vars_configmap      = "misarch-catalog-env-vars"
   misarch_discount_env_vars_configmap     = "misarch-discount-env-vars"
+  misarch_experiment_config_env_vars_configmap     = "misarch-experiment-config-env-vars"
   misarch_frontend_env_vars_configmap     = "misarch-frontend-env-vars"
   misarch_gateway_env_vars_configmap      = "misarch-gateway-env-vars"
   misarch_inventory_env_vars_configmap    = "misarch-inventory-env-vars"
@@ -17,6 +18,7 @@ locals {
   misarch_return_env_vars_configmap       = "misarch-return-env-vars"
   misarch_shipment_env_vars_configmap     = "misarch-shipment-env-vars"
   misarch_shoppingcart_env_vars_configmap = "misarch-shoppingcart-env-vars"
+  misarch_simulation_env_vars_configmap = "misarch-simulation-env-vars"
   misarch_tax_env_vars_configmap          = "misarch-tax-env-vars"
   misarch_user_env_vars_configmap         = "misarch-user-env-vars"
   misarch_wishlist_env_vars_configmap     = "misarch-wishlist-env-vars"
@@ -82,6 +84,15 @@ resource "kubernetes_config_map" "misarch_discount_env_vars" {
     "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
     "SPRING_R2DBC_PASSWORD" = random_password.misarch_discount_db_password.result
   }
+}
+
+resource "kubernetes_config_map" "misarch_experiment_config_env_vars" {
+  metadata {
+    name      = local.misarch_experiment_config_env_vars_configmap
+    namespace = local.namespace
+  }
+
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_frontend_env_vars" {
@@ -230,6 +241,15 @@ resource "kubernetes_config_map" "misarch_shoppingcart_env_vars" {
   data = {
     "ME_CONFIG_MONGODB_URL" = "mongodb://${local.shoppingcart_db_url}"
   }
+}
+
+resource "kubernetes_config_map" "misarch_simulation_env_vars" {
+  metadata {
+    name      = local.misarch_simulation_env_vars_configmap
+    namespace = local.namespace
+  }
+
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_tax_env_vars" {

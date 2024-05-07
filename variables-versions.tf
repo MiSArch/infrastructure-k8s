@@ -39,6 +39,11 @@ variable "MISARCH_DISCOUNT_VERSION" {
   default = "v0.0.1"
 }
 
+variable "MISARCH_EXPERIMENT_CONFIG_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
 variable "MISARCH_FRONTEND_VERSION" {
   type    = string
   default = "v0.0.2"
@@ -95,6 +100,11 @@ variable "MISARCH_SHIPMENT_VERSION" {
 }
 
 variable "MISARCH_SHOPPINGCART_VERSION" {
+  type    = string
+  default = "v0.0.1"
+}
+
+variable "MISARCH_SIMULATION_VERSION" {
   type    = string
   default = "v0.0.1"
 }

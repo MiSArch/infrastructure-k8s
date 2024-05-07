@@ -31,6 +31,7 @@ locals {
   misarch_address_service_name      = "misarch-address"
   misarch_catalog_service_name      = "misarch-catalog"
   misarch_discount_service_name     = "misarch-discount"
+  misarch_experiment_config_service_name     = "misarch-experiment-config"
   misarch_frontend_service_name     = "misarch-frontend"
   misarch_gateway_service_name      = "misarch-gateway"
   misarch_inventory_service_name    = "misarch-inventory"

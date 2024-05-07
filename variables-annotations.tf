@@ -35,6 +35,10 @@ locals {
     "dapr.io/app-id"   = "discount"
     "dapr.io/app-port" = 8080
   }
+  misarch_experiment_config_specific_annotations = {
+    "dapr.io/app-id"   = "experiment-config" ~ TODO: Correct name?
+    "dapr.io/app-port" = 8080 ~ TODO: Correct port?
+  }
   misarch_frontend_specific_annotations = {
     "dapr.io/app-id"   = "frontend"
     "dapr.io/app-port" = 80
@@ -53,7 +57,7 @@ locals {
   }
   misarch_media_specific_annotations = {
     "dapr.io/app-id"   = "media"
-    "dapr.io/app-port" = 8080
+    "dapr.io/app-port" = 8080 ~ TODO: Correct port?
   }
   misarch_notification_specific_annotations = {
     "dapr.io/app-id"   = "notification"
@@ -82,6 +86,10 @@ locals {
   misarch_shoppingcart_specific_annotations = {
     "dapr.io/app-id"   = "shoppingcart"
     "dapr.io/app-port" = 8080
+  }
+  misarch_simulation_specific_annotations = {
+    "dapr.io/app-id"   = "simulation"
+    "dapr.io/app-port" = 8080 ~ TODO: Correct port?
   }
   misarch_tax_specific_annotations = {
     "dapr.io/app-id"   = "tax"
