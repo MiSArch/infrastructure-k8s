@@ -58,6 +58,7 @@ locals {
   keycloak_port       = 80 # Okay, weird things are happening here: While keycloak runs under `8080`, the keycloak svc exposes port `80`. In other words, there is even an internal redirect happening here?
   frontend_port       = 80
   simulation_port     = 8080
+  minio_port     = 9000
   mongo_db_port       = 27017
   postgres_db_port    = 5432
   otel_collector_port = 4317
@@ -70,7 +71,6 @@ locals {
   address_db_full_service_name      = local.address_db_service_name # "${local.address_db_service_name}-postgresql"
   catalog_db_full_service_name      = local.catalog_db_service_name
   discount_db_full_service_name     = local.discount_db_service_name
-  media_db_full_service_name        = local.media_db_service_name
   notification_db_full_service_name = local.notification_db_service_name
   return_db_full_service_name       = local.return_db_service_name
   shipment_db_full_service_name     = local.shipment_db_service_name
@@ -80,6 +80,7 @@ locals {
   // MongoDB
   inventory_db_full_service_name    = "${local.inventory_db_service_name}-headless"
   invoice_db_full_service_name      = "${local.invoice_db_service_name}-headless"
+  media_db_full_service_name        = "${local.media_db_service_name}-headless"
   order_db_full_service_name        = "${local.order_db_service_name}-headless"
   payment_db_full_service_name      = "${local.payment_db_service_name}-headless"
   review_db_full_service_name       = "${local.review_db_service_name}-headless"
@@ -96,7 +97,7 @@ locals {
   discount_db_url     = "${local.discount_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   inventory_db_url    = "${local.inventory_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
   invoice_db_url      = "${local.invoice_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
-  media_db_url        = "${local.media_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  media_db_url        = "${local.media_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
   notification_db_url = "${local.notification_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   order_db_url        = "${local.order_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
   payment_db_url      = "${local.payment_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
@@ -114,6 +115,7 @@ locals {
   dapr_url           = "http://localhost:${local.dapr_port}"
   keycloak_url       = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
   simulation_url     = "${local.misarch_simulation_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.simulation_port}"
+  minio_url     = "${local.misarch_media_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.minio_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }
 

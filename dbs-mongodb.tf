@@ -1,6 +1,7 @@
 locals {
   inventory_db_secret_name    = "mongodb-credentials-inventory"
   invoice_db_secret_name      = "mongodb-credentials-invoice"
+  media_db_secret_name      = "mongodb-credentials-media"
   order_db_secret_name        = "mongodb-credentials-order"
   payment_db_secret_name      = "mongodb-credentials-payment"
   review_db_secret_name       = "mongodb-credentials-review"
@@ -79,6 +80,43 @@ resource "kubernetes_secret" "mongodb_credentials_invoice" {
     "mongodb-root-password"     = random_password.mongodb_root_password_invoice.result
     "mongodb-passwords"         = random_password.misarch_invoice_db_password.result
     "mongodb-replica-set-key"   = random_password.mongodb_replica_set_key_invoice.result
+  }
+}
+
+# Media
+resource "helm_release" "misarch_media_db" {
+  depends_on = [kubernetes_secret.mongodb_credentials_media]
+  name       = local.media_db_service_name
+  repository = "oci://registry-1.docker.io/bitnamicharts"
+  chart      = "mongodb"
+  namespace  = local.namespace
+
+  values = [
+    <<-EOF
+    fullnameOverride: "${local.media_db_service_name}"
+    architecture: "replicaset"
+    image:
+      tag: "${var.MONGODB_VERSION}"
+    auth:
+      usernames: ["${var.MISARCH_DB_USER}"]
+      databases: ["${var.MISARCH_DB_DATABASE}"]
+      existingSecret: "${local.media_db_secret_name}"
+    metrics:
+      enabled: true
+    EOF
+  ]
+}
+
+resource "kubernetes_secret" "mongodb_credentials_media" {
+  metadata {
+    name      = local.media_db_secret_name
+    namespace = local.namespace
+  }
+
+  data = {
+    "mongodb-root-password"     = random_password.mongodb_root_password_media.result
+    "mongodb-passwords"         = random_password.misarch_media_db_password.result
+    "mongodb-replica-set-key"   = random_password.mongodb_replica_set_key_media.result
   }
 }
 

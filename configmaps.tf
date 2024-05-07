@@ -147,10 +147,7 @@ resource "kubernetes_config_map" "misarch_media_env_vars" {
   }
 
   data = {
-    "SPRING_R2DBC_URL"      = "r2dbc:postgresql://${local.media_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_FLYWAY_URL"     = "jdbc:postgresql://${local.media_db_url}/${var.MISARCH_DB_DATABASE}"
-    "SPRING_R2DBC_USERNAME" = var.MISARCH_DB_USER
-    "SPRING_R2DBC_PASSWORD" = random_password.misarch_media_db_password.result
+    MINIO_ENDPOINT = "http://${local.minio_url}"
   }
 }
 
