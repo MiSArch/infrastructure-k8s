@@ -41,7 +41,7 @@ locals {
   }
   misarch_frontend_specific_annotations = {
     "dapr.io/app-id"   = "frontend"
-    "dapr.io/app-port" = 80
+    "dapr.io/app-port" = local.frontend_port
   }
   misarch_gateway_specific_annotations = {
     "dapr.io/app-id"   = "gateway"
@@ -69,7 +69,7 @@ locals {
   }
   misarch_payment_specific_annotations = {
     "dapr.io/app-id"   = "payment"
-    "dapr.io/app-port" = 8080
+    "dapr.io/app-port" = local.payment_port
   }
   misarch_review_specific_annotations = {
     "dapr.io/app-id"   = "review"
@@ -81,7 +81,7 @@ locals {
   }
   misarch_shipment_specific_annotations = {
     "dapr.io/app-id"   = "shipment"
-    "dapr.io/app-port" = 8080
+    "dapr.io/app-port" = local.shipment_port
   }
   misarch_shoppingcart_specific_annotations = {
     "dapr.io/app-id"   = "shoppingcart"
@@ -89,7 +89,7 @@ locals {
   }
   misarch_simulation_specific_annotations = {
     "dapr.io/app-id"   = "simulation"
-    "dapr.io/app-port" = 8080 ~ TODO: Correct port?
+    "dapr.io/app-port" = local.simulation_port
   }
   misarch_tax_specific_annotations = {
     "dapr.io/app-id"   = "tax"
@@ -102,5 +102,9 @@ locals {
   misarch_wishlist_specific_annotations = {
     "dapr.io/app-id"   = "wishlist"
     "dapr.io/app-port" = 8080
+  }
+  rabbitmq_specific_annotations = {
+    "dapr.io/app-id"  = "rabbitmq"
+    "dapr.io/app-port" = "${local.rabbitmq_port}" // `""` needed due to helm
   }
 }

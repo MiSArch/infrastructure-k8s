@@ -24,6 +24,11 @@ variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
   default = "v0.0.4"
 }
 
+variable "RABBITMQ_VERSION" {
+  type = string
+  default = "3.13.2"
+}
+
 variable "MISARCH_ADDRESS_VERSION" {
   type    = string
   default = "v0.0.1"

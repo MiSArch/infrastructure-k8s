@@ -22,6 +22,7 @@ locals {
   misarch_tax_env_vars_configmap          = "misarch-tax-env-vars"
   misarch_user_env_vars_configmap         = "misarch-user-env-vars"
   misarch_wishlist_env_vars_configmap     = "misarch-wishlist-env-vars"
+  rabbitmq_env_vars_configmap     = "rabbitmq-env-vars"
 }
 
 resource "kubernetes_config_map" "base_misarch_env_vars" {
@@ -294,5 +295,14 @@ resource "kubernetes_config_map" "misarch_wishlist_env_vars" {
   data = {
     "ME_CONFIG_MONGODB_URL" = "mongodb://${local.wishlist_db_url}"
   }
+}
+
+resource "kubernetes_config_map" "rabbitmq_env_vars" {
+  metadata {
+    name      = local.rabbitmq_env_vars_configmap
+    namespace = local.namespace
+  }
+
+  data = {}
 }
 

@@ -84,6 +84,11 @@ resource "random_password" "misarch_wishlist_db_password" {
   special = false
 }
 
+resource "random_password" "rabbitmq_password" {
+  length  = 32
+  special = false
+}
+
 resource "random_password" "redis" {
   length  = 32
   special = false
@@ -179,6 +184,11 @@ output "misarch_user_db_password" {
 
 output "misarch_wishlist_db_password" {
   value     = random_password.misarch_wishlist_db_password.result
+  sensitive = true
+}
+
+output "rabbitmq_password" {
+  value     = random_password.rabbitmq_password.result
   sensitive = true
 }
 

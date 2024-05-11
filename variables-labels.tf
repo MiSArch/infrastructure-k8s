@@ -62,4 +62,7 @@ locals {
   misarch_wishlist_specific_labels = {
     app = local.misarch_wishlist_service_name
   }
+  rabbitmq_specific_labels = {
+    app = local.rabbitmq_service_name
+  }
 }

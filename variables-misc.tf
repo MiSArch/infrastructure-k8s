@@ -33,6 +33,11 @@ variable "MISARCH_SIMULATION_PROCESSING_TIME_SECONDS" {
   default = 5
 }
 
+variable "RABBITMQ_ERLANG_COOKIE" {
+  type = string
+  default = "RABBITMQ_MISARCH_ERLANG_COOKIE"
+}
+
 locals {
   dapr_general_config_name = "dapr-config"
 }
