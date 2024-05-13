@@ -2,6 +2,9 @@ locals {
   base_misarch_labels = {}
 }
 locals {
+  minio_specific_labels = {
+    app = local.minio_service_name
+  }
   misarch_address_specific_labels = {
     app = local.misarch_address_service_name
   }

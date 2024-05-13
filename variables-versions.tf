@@ -24,6 +24,11 @@ variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
   default = "v0.0.4"
 }
 
+variable "MINIO_VERSION" {
+  type = string
+  default = "2024.5.10"
+}
+
 variable "RABBITMQ_VERSION" {
   type = string
   default = "3.13.2"

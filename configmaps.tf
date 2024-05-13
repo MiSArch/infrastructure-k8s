@@ -2,6 +2,7 @@ locals {
   misarch_base_env_vars_configmap = "misarch-base-env-vars"
 
   keycloak_env_vars_configmap             = "keycloak-custom-env-vars"
+  minio_env_vars_configmap     = "minio-env-vars"
   misarch_address_env_vars_configmap      = "misarch-address-env-vars"
   misarch_catalog_env_vars_configmap      = "misarch-catalog-env-vars"
   misarch_discount_env_vars_configmap     = "misarch-discount-env-vars"
@@ -43,6 +44,15 @@ resource "kubernetes_config_map" "keycloak_env_vars" {
     "KEYCLOAK_EXTRA_ARGS"             = "--import-realm"
     "QUARKUS_HTTP_ACCESS_LOG_ENABLED" = "true" // for easier debugging, can just as well be deleted
   }
+}
+
+resource "kubernetes_config_map" "minio_env_vars" {
+  metadata {
+    name      = local.minio_env_vars_configmap
+    namespace = local.namespace
+  }
+
+  data = {}
 }
 
 resource "kubernetes_config_map" "misarch_address_env_vars" {

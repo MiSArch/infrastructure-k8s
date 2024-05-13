@@ -23,6 +23,13 @@ locals {
     "dapr.io/app-id"   = "keycloak"
     "dapr.io/app-port" = "8080" # '""' needed because of Helm
   }
+  minio_specific_annotations = {
+    "dapr.io/app-id"  = "minio"
+    "dapr.io/app-port" = "${local.minio_port}" // `""` needed due to helm
+    "prometheus.io/scrape": "true"
+    "prometheus.io/path": "/minio/v2/metrics/cluster"
+    "prometheus.io/port": "${local.minio_port}"
+  }
   misarch_address_specific_annotations = {
     "dapr.io/app-id"   = "address"
     "dapr.io/app-port" = 8080

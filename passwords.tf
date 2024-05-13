@@ -4,6 +4,11 @@ resource "random_password" "keycloak_db_password" {
   special = false
 }
 
+resource "random_password" "minio_admin_password" {
+  length  = 32
+  special = false
+}
+
 resource "random_password" "misarch_address_db_password" {
   length  = 32
   special = false
@@ -104,6 +109,11 @@ resource "random_password" "redis" {
 
 output "keycloak_db_password" {
   value     = random_password.keycloak_db_password.result
+  sensitive = true
+}
+
+output "minio_admin_password" {
+  value     = random_password.minio_admin_password.result
   sensitive = true
 }
 
