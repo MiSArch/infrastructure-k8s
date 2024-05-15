@@ -29,6 +29,7 @@ resource "helm_release" "misarch_inventory_db" {
       existingSecret: "${local.inventory_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -66,6 +67,7 @@ resource "helm_release" "misarch_invoice_db" {
       existingSecret: "${local.invoice_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -103,6 +105,7 @@ resource "helm_release" "misarch_media_db" {
       existingSecret: "${local.media_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -140,6 +143,7 @@ resource "helm_release" "misarch_order_db" {
       existingSecret: "${local.order_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -177,6 +181,7 @@ resource "helm_release" "misarch_payment_db" {
       existingSecret: "${local.payment_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -214,6 +219,7 @@ resource "helm_release" "misarch_review_db" {
       existingSecret: "${local.review_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -251,6 +257,7 @@ resource "helm_release" "misarch_shoppingcart_db" {
       existingSecret: "${local.shoppingcart_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -288,6 +295,7 @@ resource "helm_release" "misarch_wishlist_db" {
       existingSecret: "${local.wishlist_db_secret_name}"
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }

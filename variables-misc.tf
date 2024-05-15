@@ -33,6 +33,12 @@ variable "MISARCH_SIMULATION_PROCESSING_TIME_SECONDS" {
   default = 5
 }
 
+variable "MONGODB_RESOURCE_PRESET" {
+  type = string
+  description = "Sets a resource limit for MongoDBs. Values are as described in https://github.com/bitnami/charts/blob/4b89068b8267e4b115c676064d092a05813953cc/bitnami/common/templates/_resources.tpl#L16-L43. Default is 'micro', Helm Chart default was 'small'."
+  default = "micro"
+}
+
 variable "RABBITMQ_ERLANG_COOKIE" {
   type = string
   default = "RABBITMQ_MISARCH_ERLANG_COOKIE"
