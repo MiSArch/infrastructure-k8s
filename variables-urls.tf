@@ -49,8 +49,8 @@ locals {
   misarch_user_service_name         = "misarch-user"
   misarch_wishlist_service_name     = "misarch-wishlist"
 
-  minio_service_name = … // TODO: "minio"?
-  rabbitmq_service_name = … // TODO: "rabbitmq"?
+  minio_service_name = "minio"
+  rabbitmq_service_name = "rabbitmq"
   otel_collector_service_name = "otel-collector"
 }
 
@@ -93,6 +93,7 @@ locals {
   wishlist_db_full_service_name     = "${local.wishlist_db_service_name}-headless"
 
   minio_full_service_name = local.minio_service_name
+  rabbitmq_full_service_name = local.rabbitmq_service_name
   otel_collector_full_service_name = "${local.otel_collector_service_name}-opentelemetry-collector"
 }
 
@@ -123,7 +124,6 @@ locals {
   simulation_url     = "${local.misarch_simulation_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.simulation_port}"
   shipment_url     = "${local.misarch_shipment_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.shipment_port}"
   payment_url     = "${local.misarch_payment_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.payment_port}"
-  simulation_url     = "${local.misarch_simulation_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.simulation_port}"
 
   minio_url     = "${local.minio_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.minio_port}"
   rabbitmq_url     = "${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
