@@ -148,6 +148,7 @@ resource "kubernetes_config_map" "misarch_invoice_env_vars" {
 
   data = {
     "ME_CONFIG_MONGODB_URL" = "mongodb://${local.invoice_db_url}"
+    "MONGODB_URI" = "mongodb://${local.invoice_db_url}"
   }
 }
 
@@ -185,6 +186,7 @@ resource "kubernetes_config_map" "misarch_order_env_vars" {
 
   data = {
     "ME_CONFIG_MONGODB_URL" = "mongodb://${local.order_db_url}"
+    "MONGODB_URI" = "mongodb://${local.order_db_url}"
   }
 }
 
@@ -209,6 +211,7 @@ resource "kubernetes_config_map" "misarch_review_env_vars" {
 
   data = {
     "ME_CONFIG_MONGODB_URL" = "mongodb://${local.review_db_url}"
+    "MONGODB_URI" = "mongodb://${local.review_db_url}"
   }
 }
 
@@ -249,6 +252,7 @@ resource "kubernetes_config_map" "misarch_shoppingcart_env_vars" {
 
   data = {
     "ME_CONFIG_MONGODB_URL" = "mongodb://${local.shoppingcart_db_url}"
+    "MONGODB_URI" = "mongodb://${local.shoppingcart_db_url}"
   }
 }
 
@@ -304,6 +308,7 @@ resource "kubernetes_config_map" "misarch_wishlist_env_vars" {
 
   data = {
     "ME_CONFIG_MONGODB_URL" = "mongodb://${local.wishlist_db_url}"
+    "MONGODB_URI" = "mongodb://${local.wishlist_db_url}"
   }
 }
 

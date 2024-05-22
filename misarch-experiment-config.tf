@@ -25,7 +25,7 @@ resource "kubernetes_deployment" "misarch_experiment_config" {
       spec {
 
         container {
-          image             = "ghcr.io/misarch/experiment_config:${var.MISARCH_EXPERIMENT_CONFIG_VERSION}"
+          image             = "ghcr.io/misarch/experiment-config:${var.MISARCH_EXPERIMENT_CONFIG_VERSION}"
           image_pull_policy = "Always"
 
           name = local.misarch_experiment_config_service_name

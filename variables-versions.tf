@@ -71,7 +71,7 @@ variable "MISARCH_INVENTORY_VERSION" {
 
 variable "MISARCH_INVOICE_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v0.2.0"
 }
 
 variable "MISARCH_MEDIA_VERSION" {
@@ -86,12 +86,12 @@ variable "MISARCH_NOTIFICATION_VERSION" {
 
 variable "MISARCH_ORDER_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v0.2.0"
 }
 
 variable "MISARCH_PAYMENT_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v1.1.0"
 }
 
 variable "MISARCH_RETURN_VERSION" {
@@ -101,7 +101,7 @@ variable "MISARCH_RETURN_VERSION" {
 
 variable "MISARCH_REVIEW_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v0.2.0"
 }
 
 variable "MISARCH_SHIPMENT_VERSION" {
@@ -111,12 +111,12 @@ variable "MISARCH_SHIPMENT_VERSION" {
 
 variable "MISARCH_SHOPPINGCART_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v0.2.0"
 }
 
 variable "MISARCH_SIMULATION_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v1.1.0"
 }
 
 variable "MISARCH_TAX_VERSION" {
@@ -131,5 +131,5 @@ variable "MISARCH_USER_VERSION" {
 
 variable "MISARCH_WISHLIST_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "v0.2.0"
 }

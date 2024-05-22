@@ -62,11 +62,11 @@ locals {
   simulation_port     = 8080
   shipment_port     = 8080
   payment_port     = 8080
-  minio_port     = 9000
+  minio_port     = "9000"
   mongo_db_port       = 27017
   postgres_db_port    = 5432
   otel_collector_port = 4317
-  rabbitmq_port = 5672 // 5671 for TLS
+  rabbitmq_port = "5672" // 5671 for TLS
 }
 
 // DB Addresses

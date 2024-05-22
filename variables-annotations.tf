@@ -111,7 +111,6 @@ locals {
     "dapr.io/app-port" = "8080"
   }
   rabbitmq_specific_annotations = {
-    "dapr.io/app-id"  = "rabbitmq"
-    "dapr.io/app-port" = "${local.rabbitmq_port}" // `""` needed due to helm
+    "dapr.io/enabled" = "false"
   }
 }
