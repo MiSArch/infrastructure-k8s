@@ -126,7 +126,7 @@ locals {
   payment_url     = "${local.misarch_payment_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.payment_port}"
 
   minio_url     = "${local.minio_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.minio_port}"
-  rabbitmq_url     = "${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
+  rabbitmq_url     = "${var.MISARCH_DB_USER}:${random_password.rabbitmq_password.result}@${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
 }
 
