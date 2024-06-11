@@ -19,8 +19,9 @@ resource "helm_release" "rabbitmq" {
       ${replace(local.rabbitmq_labels, "/\n/", "\n  ")}
     fullnameOverride: "${local.rabbitmq_service_name}"
     auth:
-      user: "${var.MISARCH_DB_USER}"
-      password: "${random_password.rabbitmq_password.result}"
+      # For some weird reason, setting a password doesn't work as requests cannot be authenticated. Uncomment below once it works.
+      # user: "${var.MISARCH_DB_USER}"
+      # password: "${random_password.rabbitmq_password.result}"
       erlangCookie: "${var.RABBITMQ_ERLANG_COOKIE}"
     metrics:
       enabled: true
