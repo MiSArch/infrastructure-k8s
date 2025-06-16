@@ -1,7 +1,7 @@
 resource "helm_release" "redis" {
   depends_on = [kubernetes_namespace.misarch]
   name       = "redis"
-  repository = "https://charts.bitnami.com/bitnami"
+  repository = "oci://registry-1.docker.io/bitnamicharts"
   chart      = "redis"
   namespace  = local.namespace
 

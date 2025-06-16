@@ -46,8 +46,6 @@ resource "helm_release" "keycloak" {
     extraVolumeMounts:
       - name: misarch-keycloak-realm
         mountPath: "/opt/bitnami/keycloak/data/import"
-      - name: misarch-keycloak-plugins
-        mountPath: "/opt/bitnami/keycloak/providers"
     EOF
   ]
 }

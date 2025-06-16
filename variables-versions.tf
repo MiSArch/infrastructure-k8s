@@ -1,6 +1,6 @@
 variable "MONGODB_VERSION" {
   type    = string
-  default = "7.0.6"
+  default = "7.0.15"
 }
 
 variable "POSTGRES_VERSION" {

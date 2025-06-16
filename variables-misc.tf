@@ -1,6 +1,7 @@
 variable "KUBERNETES_CONFIG_PATH" {
   sensitive = true
   type      = string
+  default   = "~/.kube/config"
 }
 
 variable "KUBERNETES_NAMESPACE" {

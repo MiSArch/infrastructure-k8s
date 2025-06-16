@@ -1,6 +1,7 @@
 variable "ROOT_DOMAIN" {
   type        = string
   description = "Full URL the instance will be published on. Should not have a trailing slash."
+  default     = "http://localhost:8080"
 }
 
 // DBs
@@ -83,14 +84,14 @@ locals {
   user_db_full_service_name         = local.user_db_service_name
 
   // MongoDB
-  inventory_db_full_service_name    = "${local.inventory_db_service_name}-headless"
-  invoice_db_full_service_name      = "${local.invoice_db_service_name}-headless"
-  media_db_full_service_name        = "${local.media_db_service_name}-headless"
-  order_db_full_service_name        = "${local.order_db_service_name}-headless"
-  payment_db_full_service_name      = "${local.payment_db_service_name}-headless"
-  review_db_full_service_name       = "${local.review_db_service_name}-headless"
-  shoppingcart_db_full_service_name = "${local.shoppingcart_db_service_name}-headless"
-  wishlist_db_full_service_name     = "${local.wishlist_db_service_name}-headless"
+  inventory_db_full_service_name    = local.inventory_db_service_name
+  invoice_db_full_service_name      = local.invoice_db_service_name
+  media_db_full_service_name        = local.media_db_service_name
+  order_db_full_service_name        = local.order_db_service_name
+  payment_db_full_service_name      = local.payment_db_service_name
+  review_db_full_service_name       = local.review_db_service_name
+  shoppingcart_db_full_service_name = local.shoppingcart_db_service_name
+  wishlist_db_full_service_name     = local.wishlist_db_service_name
 
   minio_full_service_name = local.minio_service_name
   rabbitmq_full_service_name = local.rabbitmq_service_name
