@@ -13,23 +13,45 @@ locals {
 resource "helm_release" "misarch_inventory_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_inventory]
   name       = local.inventory_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "oci://registry-1.docker.io/bitnamicharts"
   chart      = "mongodb"
   namespace  = local.namespace
 
   values = [
     <<-EOF
     fullnameOverride: "${local.inventory_db_service_name}"
-    architecture: "standalone"
+    architecture: "replicaset"
+    global:
+      security:
+        allowInsecureImages: true
     image:
+      registry: docker.io
+      repository: dlavrenuek/bitnami-mongodb-arm
       tag: "${var.MONGODB_VERSION}"
+      digest: ""
     auth:
       usernames: ["${var.MISARCH_DB_USER}"]
       databases: ["${var.MISARCH_DB_DATABASE}"]
       existingSecret: "${local.inventory_db_secret_name}"
     metrics:
-      enabled: true
-    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
+      enabled: false
+    resources:
+  limits:
+    cpu: 512m
+    memory: 1Gi
+    ephemeral-storage: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 1Gi
+    ephemeral-storage: 50Mi
+    arbiter:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
     EOF
   ]
 }
@@ -51,7 +73,7 @@ resource "kubernetes_secret" "mongodb_credentials_inventory" {
 resource "helm_release" "misarch_invoice_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_invoice]
   name       = local.invoice_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "/Users/DCCDSKC/master/thesis/misarch/infrastructure-k8s"
   chart      = "mongodb"
   namespace  = local.namespace
 
@@ -89,7 +111,7 @@ resource "kubernetes_secret" "mongodb_credentials_invoice" {
 resource "helm_release" "misarch_media_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_media]
   name       = local.media_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "/Users/DCCDSKC/master/thesis/misarch/infrastructure-k8s"
   chart      = "mongodb"
   namespace  = local.namespace
 
@@ -127,7 +149,7 @@ resource "kubernetes_secret" "mongodb_credentials_media" {
 resource "helm_release" "misarch_order_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_order]
   name       = local.order_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "/Users/DCCDSKC/master/thesis/misarch/infrastructure-k8s"
   chart      = "mongodb"
   namespace  = local.namespace
 
@@ -165,7 +187,7 @@ resource "kubernetes_secret" "mongodb_credentials_order" {
 resource "helm_release" "misarch_payment_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_payment]
   name       = local.payment_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "/Users/DCCDSKC/master/thesis/misarch/infrastructure-k8s"
   chart      = "mongodb"
   namespace  = local.namespace
 
@@ -203,7 +225,7 @@ resource "kubernetes_secret" "mongodb_credentials_payment" {
 resource "helm_release" "misarch_review_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_review]
   name       = local.review_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "/Users/DCCDSKC/master/thesis/misarch/infrastructure-k8s"
   chart      = "mongodb"
   namespace  = local.namespace
 
@@ -241,7 +263,7 @@ resource "kubernetes_secret" "mongodb_credentials_review" {
 resource "helm_release" "misarch_shoppingcart_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_shoppingcart]
   name       = local.shoppingcart_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "/Users/DCCDSKC/master/thesis/misarch/infrastructure-k8s"
   chart      = "mongodb"
   namespace  = local.namespace
 
@@ -279,7 +301,7 @@ resource "kubernetes_secret" "mongodb_credentials_shoppingcart" {
 resource "helm_release" "misarch_wishlist_db" {
   depends_on = [kubernetes_secret.mongodb_credentials_wishlist]
   name       = local.wishlist_db_service_name
-  repository = "/Users/p371728/master/thesis/misarch/infrastructure-k8s"
+  repository = "/Users/DCCDSKC/master/thesis/misarch/infrastructure-k8s"
   chart      = "mongodb"
   namespace  = local.namespace
 
