@@ -5,6 +5,9 @@ locals {
   minio_specific_labels = {
     app = local.minio_service_name
   }
+  misarch_keycloak_specific_labels = {
+    app = local.keycloak_service_name
+  }
   misarch_address_specific_labels = {
     app = local.misarch_address_service_name
   }
@@ -65,6 +68,9 @@ locals {
   misarch_wishlist_specific_labels = {
     app = local.misarch_wishlist_service_name
   }
+  #misarch_testdata_specific_labels = {
+  #  app = local.misarch_testdata_service_name
+  #}
   rabbitmq_specific_labels = {
     app = local.rabbitmq_service_name
   }

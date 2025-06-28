@@ -1,3 +1,23 @@
+resource "kubernetes_service" "misarch_gateway" {
+  metadata {
+    name      = local.misarch_gateway_service_name
+    labels    = merge(local.base_misarch_labels, local.misarch_gateway_specific_labels)
+    namespace = local.namespace
+  }
+
+  spec {
+    selector = {
+      app = local.misarch_gateway_service_name
+    }
+
+    port {
+      name       = "http"
+      port       = 8080
+      target_port = 8080
+    }
+  }
+}
+
 resource "kubernetes_deployment" "misarch_gateway" {
   depends_on = [terraform_data.dapr]
   metadata {
@@ -32,13 +52,24 @@ resource "kubernetes_deployment" "misarch_gateway" {
 
           resources {
             limits = {
-              cpu    = "600m"
-              memory = "2400Mi"
+              cpu    = "2400m"
+              memory = "5Gi"
             }
             requests = {
-              cpu    = "200m"
-              memory = "1200Mi"
+              cpu    = "1000m"
+              memory = "2400Mi"
             }
+          }
+
+          readiness_probe {
+            tcp_socket {
+              port = 8080
+            }
+            initial_delay_seconds = 30
+            period_seconds        = 10
+            failure_threshold     = 3
+            success_threshold     = 1
+            timeout_seconds       = 5
           }
 
           env_from {

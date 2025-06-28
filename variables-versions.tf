@@ -19,9 +19,14 @@ variable "KEYCLOAK_ADMIN_PASSWORD" {
   default   = "admin"
 }
 
+variable "MISARCH_KEYCLOAK_VERSION" {
+  type    = string
+  default = "main"
+}
+
 variable "KEYCLOAK_USER_EVENTS_PLUGIN_VERSION" {
   type    = string
-  default = "v0.0.4"
+  default = "main"
 }
 
 variable "MINIO_VERSION" {
@@ -36,100 +41,105 @@ variable "RABBITMQ_VERSION" {
 
 variable "MISARCH_ADDRESS_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_CATALOG_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_DISCOUNT_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_EXPERIMENT_CONFIG_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_FRONTEND_VERSION" {
   type    = string
-  default = "v0.0.2"
+  default = "main"
 }
 
 variable "MISARCH_GATEWAY_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_INVENTORY_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_INVOICE_VERSION" {
   type    = string
-  default = "v0.2.0"
+  default = "main"
 }
 
 variable "MISARCH_MEDIA_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_NOTIFICATION_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_ORDER_VERSION" {
   type    = string
-  default = "v0.2.0"
+  default = "main"
 }
 
 variable "MISARCH_PAYMENT_VERSION" {
   type    = string
-  default = "v1.1.0"
+  default = "main"
 }
 
 variable "MISARCH_RETURN_VERSION" {
   type    = string
-  default = "v0.0.2"
+  default = "main"
 }
 
 variable "MISARCH_REVIEW_VERSION" {
   type    = string
-  default = "v0.2.0"
+  default = "main"
 }
 
 variable "MISARCH_SHIPMENT_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_SHOPPINGCART_VERSION" {
   type    = string
-  default = "v0.2.0"
+  default = "main"
 }
 
 variable "MISARCH_SIMULATION_VERSION" {
   type    = string
-  default = "v1.1.0"
+  default = "main"
 }
 
 variable "MISARCH_TAX_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
+
+#variable "MISARCH_TESTDATA_VERSION" {
+#  type = string
+#  default = "main"
+#}
 
 variable "MISARCH_USER_VERSION" {
   type    = string
-  default = "v0.0.1"
+  default = "main"
 }
 
 variable "MISARCH_WISHLIST_VERSION" {
   type    = string
-  default = "v0.2.0"
+  default = "main"
 }

@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "misarch_frontend" {
-  depends_on = [terraform_data.dapr, helm_release.keycloak]
+  depends_on = [terraform_data.dapr, kubernetes_deployment.keycloak]
   metadata {
 
     name      = local.misarch_frontend_service_name

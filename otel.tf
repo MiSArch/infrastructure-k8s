@@ -8,7 +8,10 @@ resource "helm_release" "otel-collector" {
     <<-EOF
     mode: "deployment"
     image:
-      repository: "otel/opentelemetry-collector-k8s" # https://github.com/open-telemetry/opentelemetry-helm-charts/blob/main/charts/opentelemetry-collector/UPGRADING.md#0880-to-0890
+      repository: "otel/opentelemetry-collector-k8s"
+    service:
+      enabled: true
+      type: ClusterIP
     EOF
   ]
 }

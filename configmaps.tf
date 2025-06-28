@@ -21,6 +21,7 @@ locals {
   misarch_shoppingcart_env_vars_configmap = "misarch-shoppingcart-env-vars"
   misarch_simulation_env_vars_configmap = "misarch-simulation-env-vars"
   misarch_tax_env_vars_configmap          = "misarch-tax-env-vars"
+  #misarch_testdata_env_vars_configmap   = "misarch-testdata-env-vars"
   misarch_user_env_vars_configmap         = "misarch-user-env-vars"
   misarch_wishlist_env_vars_configmap     = "misarch-wishlist-env-vars"
   rabbitmq_env_vars_configmap     = "rabbitmq-env-vars"
@@ -43,6 +44,8 @@ resource "kubernetes_config_map" "keycloak_env_vars" {
     "KC_HOSTNAME_STRICT"              = "false"
     "KEYCLOAK_EXTRA_ARGS"             = "--import-realm"
     "QUARKUS_HTTP_ACCESS_LOG_ENABLED" = "true" // for easier debugging, can just as well be deleted
+    "KEYCLOAK_HTTPS_ENABLED" = "false"
+    "KC_HTTP_PORT" = "8080"
   }
 }
 
@@ -114,7 +117,8 @@ resource "kubernetes_config_map" "misarch_frontend_env_vars" {
 
   data = {
     "GATEWAY_ENDPOINT"  = local.dapr_misarch_gateway_url
-    "KEYCLOAK_ENDPOINT" = "http://${local.keycloak_url}"
+    "KEYCLOAK_ENDPOINT" = "http://${local.keycloak_url}/keycloak"
+    "MINIO_ENDPOINT"   = local.minio_url
   }
 }
 
@@ -285,6 +289,26 @@ resource "kubernetes_config_map" "misarch_tax_env_vars" {
     "SPRING_R2DBC_PASSWORD" = random_password.misarch_tax_db_password.result
   }
 }
+
+# resource "kubernetes_config_map" "misarch_testdata_env_vars" {
+#   metadata {
+#     name      = local.misarch_testdata_env_vars_configmap
+#     namespace = local.namespace
+#   }
+#
+#   data = {
+#     GRAPHQL_ENDPOINT = "http://misarch-gateway:8080/graphql"
+#     KEYCLOAK_URL = "http://${local.keycloak_url}/keycloak"
+#     REALM = "Misarch"
+#     ADMIN_USER = "admin"
+#     ADMIN_PASS = "admin"
+#     ADMIN_CLIENT_ID = "admin-cli"
+#     CLIENT_ID = "frontend"
+#     GATLING_USERNAME = "gatling"
+#     GATLING_PASSWORD = "123"
+#     GRANT_TYPE = "password"
+#   }
+# }
 
 resource "kubernetes_config_map" "misarch_user_env_vars" {
   metadata {

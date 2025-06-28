@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "misarch_experiment_config" {
-  depends_on = [terraform_data.dapr, helm_release.keycloak]
+  depends_on = [terraform_data.dapr, kubernetes_deployment.keycloak]
   metadata {
 
     name      = local.misarch_experiment_config_service_name
