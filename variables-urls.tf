@@ -69,6 +69,7 @@ locals {
   mongo_db_port       = 27017
   postgres_db_port    = 5432
   otel_collector_port = 4317
+  otel_collector_port_http = 4318
   rabbitmq_port = "5672" // 5671 for TLS
   experiment_config_sidecar_port = 5000
 }
@@ -134,6 +135,7 @@ locals {
   // For some unknown reason, the version below with password does not work
   // rabbitmq_url     = "${var.MISARCH_DB_USER}:${random_password.rabbitmq_password.result}@${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
+  otel_collector_url_http = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port_http}"
 }
 
 

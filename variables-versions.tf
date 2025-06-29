@@ -148,3 +148,8 @@ variable "MISARCH_EXPERIMENT_CONFIG_SIDECAR_VERSION" {
   type    = string
   default = "main"
 }
+
+variable "OTEL_COLLECTOR_VERSION" {
+  type    = string
+  default = "0.128.0"
+}

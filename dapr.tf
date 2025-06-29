@@ -106,6 +106,8 @@ resource "kubectl_manifest" "dapr_config" {
           endpointAddress: ${local.otel_collector_url}
           protocol: grpc
           isSecure: false
+      metrics:
+        enabled: true
   EOF
 }
 
