@@ -52,6 +52,30 @@ resource "kubernetes_deployment" "misarch_frontend" {
             }
           }
         }
+
+        container {
+          image             = "ghcr.io/misarch/experiment-config-sidecar:${var.MISARCH_EXPERIMENT_CONFIG_SIDECAR_VERSION}"
+          image_pull_policy = "Always"
+
+          name = local.misarch_ecs_service_name
+
+          resources {
+            limits = {
+              cpu    = "2000m"
+              memory = "2Gi"
+            }
+            requests = {
+              cpu    = "10m"
+              memory = "50Mi"
+            }
+          }
+
+          env_from {
+            config_map_ref {
+              name = local.misarch_frontend_ecs_env_vars_configmap
+            }
+          }
+        }
       }
     }
   }

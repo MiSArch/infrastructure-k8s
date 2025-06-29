@@ -143,3 +143,8 @@ variable "MISARCH_WISHLIST_VERSION" {
   type    = string
   default = "main"
 }
+
+variable "MISARCH_EXPERIMENT_CONFIG_SIDECAR_VERSION" {
+  type    = string
+  default = "main"
+}

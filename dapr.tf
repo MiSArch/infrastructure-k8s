@@ -70,6 +70,27 @@ resource "kubectl_manifest" "dapr_pubsub_config" {
   EOF
 }
 
+resource "kubectl_manifest" "dapr_pubsub_config_experiment_config" {
+  depends_on = [helm_release.dapr]
+  yaml_body  = <<-EOF
+  apiVersion:  "dapr.io/v1alpha1"
+  kind: "Component"
+  metadata:
+    name: "experiment-config-pubsub"
+    namespace: ${local.namespace}
+
+  spec:
+    type: "pubsub.redis"
+    version: "v1"
+
+    metadata:
+      - name: "redisHost"
+        value: "redis-master:6379"
+      - name: "redisPassword"
+        value: ${random_password.redis.result}
+  EOF
+}
+
 resource "kubectl_manifest" "dapr_config" {
   depends_on = [helm_release.dapr]
   yaml_body  = <<-EOF
@@ -90,5 +111,6 @@ resource "kubectl_manifest" "dapr_config" {
 
 // Pseudo resource so that all services can simply depend on this resource instead of the whole list ↓
 resource "terraform_data" "dapr" {
-  depends_on = [helm_release.dapr, kubectl_manifest.dapr_config, kubectl_manifest.dapr_pubsub_config, kubectl_manifest.dapr_state_config]
+  depends_on = [helm_release.dapr, kubectl_manifest.dapr_config, kubectl_manifest.dapr_pubsub_config_experiment_config,
+    kubectl_manifest.dapr_pubsub_config, kubectl_manifest.dapr_state_config]
 }

@@ -1,3 +1,23 @@
+resource "kubernetes_service" "misarch_experiment_config" {
+  metadata {
+    name      = local.misarch_experiment_config_service_name
+    namespace = local.namespace
+    labels    = merge(local.base_misarch_labels, local.misarch_experiment_config_specific_labels)
+  }
+
+  spec {
+    selector = {
+      app = local.misarch_experiment_config_service_name
+    }
+
+    port {
+      name       = "http"
+      port       = 80
+      target_port = 8080
+    }
+  }
+}
+
 resource "kubernetes_deployment" "misarch_experiment_config" {
   depends_on = [terraform_data.dapr, kubernetes_deployment.keycloak]
   metadata {
@@ -39,6 +59,17 @@ resource "kubernetes_deployment" "misarch_experiment_config" {
               cpu    = "100m"
               memory = "400Mi"
             }
+          }
+
+          readiness_probe {
+            tcp_socket {
+              port = 8080
+            }
+            initial_delay_seconds = 30
+            period_seconds        = 10
+            failure_threshold     = 3
+            success_threshold     = 1
+            timeout_seconds       = 5
           }
 
           env_from {

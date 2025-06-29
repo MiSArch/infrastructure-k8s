@@ -54,6 +54,7 @@ locals {
   minio_service_name = "minio"
   rabbitmq_service_name = "rabbitmq"
   otel_collector_service_name = "otel-collector"
+  misarch_ecs_service_name = "misarch-ecs"
 }
 
 // Ports
@@ -69,6 +70,7 @@ locals {
   postgres_db_port    = 5432
   otel_collector_port = 4317
   rabbitmq_port = "5672" // 5671 for TLS
+  experiment_config_sidecar_port = 5000
 }
 
 // DB Addresses
