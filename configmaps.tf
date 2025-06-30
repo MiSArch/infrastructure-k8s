@@ -65,8 +65,9 @@ resource "kubernetes_config_map" "keycloak_env_vars" {
     "KC_HOSTNAME_STRICT"              = "false"
     "KEYCLOAK_EXTRA_ARGS"             = "--import-realm"
     "QUARKUS_HTTP_ACCESS_LOG_ENABLED" = "true" // for easier debugging, can just as well be deleted
-    "KEYCLOAK_HTTPS_ENABLED" = "false"
-    "KC_HTTP_PORT" = "8080"
+    "KEYCLOAK_HTTPS_ENABLED"          = "false"
+    "KC_HTTP_PORT"                    = "8080"
+    "KC_DB_URL"                       = "jdbc:postgresql://${local.keycloak_db_url}/keycloak"
   }
 }
 

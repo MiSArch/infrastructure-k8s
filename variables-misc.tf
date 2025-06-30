@@ -19,6 +19,16 @@ variable "MISARCH_DB_DATABASE" {
   default = "misarch"
 }
 
+variable "KEYCLOAK_DB_USER" {
+  type    = string
+  default = "postgres"
+}
+
+variable "KEYCLOAK_DB_DATABASE" {
+  type    = string
+  default = "keycloak"
+}
+
 variable "MISARCH_SIMULATION_PAYMENTS_PER_MINUTE" {
   type    = number
   default = 10000000

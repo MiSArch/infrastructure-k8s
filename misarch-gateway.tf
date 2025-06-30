@@ -56,8 +56,8 @@ resource "kubernetes_deployment" "misarch_gateway" {
               memory = "5Gi"
             }
             requests = {
-              cpu    = "1000m"
-              memory = "2400Mi"
+              cpu    = "100m"
+              memory = "200Mi"
             }
           }
 

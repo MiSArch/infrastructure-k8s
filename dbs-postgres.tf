@@ -173,22 +173,22 @@ resource "helm_release" "misarch_user_db" {
   ]
 }
 
-
 resource "helm_release" "misarch_keycloak_db" {
-  name       = "keycloak-db" # todo put ito var
+  name       = local.keycloak_db_service_name
   repository = "oci://registry-1.docker.io/bitnamicharts"
   chart      = "postgresql"
   namespace  = local.namespace
 
+  # TODO proper password
   values = [
     <<-EOF
-    fullnameOverride: "keycloak-db"
+    fullnameOverride: "${local.keycloak_db_service_name}"
     image:
       tag: "${var.POSTGRES_VERSION}"
     auth:
       enablePostgresUser: false
-      username: "postgres"
-      database: "keycloak"
+      username: ${var.KEYCLOAK_DB_USER}
+      database: ${var.KEYCLOAK_DB_DATABASE}
       password: "postgres"
     metrics:
       enabled: false

@@ -22,12 +22,14 @@ locals {
   tax_db_service_name          = "tax-db"
   user_db_service_name         = "user-db"
   wishlist_db_service_name     = "wishlist-db"
+  keycloak_db_service_name     = "keycloak-db"
 }
 
 // Services
 locals {
   ingress_name          = "misarch-ingress"
   keycloak_service_name = "keycloak"
+  influxdb_service_name = "influxdb"
 
   misarch_address_service_name      = "misarch-address"
   misarch_catalog_service_name      = "misarch-catalog"
@@ -72,6 +74,7 @@ locals {
   otel_collector_port_http = 4318
   rabbitmq_port = "5672" // 5671 for TLS
   experiment_config_sidecar_port = 5000
+  influxdb_port = 8086
 }
 
 // DB Addresses
@@ -86,6 +89,7 @@ locals {
   shipment_db_full_service_name     = local.shipment_db_service_name
   tax_db_full_service_name          = local.tax_db_service_name
   user_db_full_service_name         = local.user_db_service_name
+  keycloak_db_full_service_name     = local.keycloak_db_service_name
 
   // MongoDB
   inventory_db_full_service_name    = "${local.inventory_db_service_name}-headless"
@@ -120,6 +124,7 @@ locals {
   tax_db_url          = "${local.tax_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   user_db_url         = "${local.user_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   wishlist_db_url     = "${local.wishlist_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
+  keycloak_db_url     = "${local.keycloak_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
 }
 
 // Service URLs
@@ -136,6 +141,7 @@ locals {
   // rabbitmq_url     = "${var.MISARCH_DB_USER}:${random_password.rabbitmq_password.result}@${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
   otel_collector_url_http = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port_http}"
+  influxdb_url = "${local.influxdb_service_name}.${local.namespace}.svc.cluster.local:${local.influxdb_port}"
 }
 
 
