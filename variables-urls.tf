@@ -34,7 +34,6 @@ locals {
   misarch_address_service_name      = "misarch-address"
   misarch_catalog_service_name      = "misarch-catalog"
   misarch_discount_service_name     = "misarch-discount"
-  misarch_experiment_config_service_name     = "misarch-experiment-config"
   misarch_frontend_service_name     = "misarch-frontend"
   misarch_gateway_service_name      = "misarch-gateway"
   misarch_inventory_service_name    = "misarch-inventory"
@@ -57,6 +56,12 @@ locals {
   rabbitmq_service_name = "rabbitmq"
   otel_collector_service_name = "otel-collector"
   misarch_ecs_service_name = "misarch-ecs"
+
+  misarch_experiment_config_service_name     = "misarch-experiment-config"
+  misarch_experiment_executor_service_name = "misarch-experiment-executor"
+  misarch_experiment_executor_frontend_service_name = "misarch-experiment-executor-frontend"
+  misarch_gatling_executor_service_name = "misarch-gatling-executor"
+  misarch_chaostoolkit_executor_service_name = "misarch-chaostoolkit-executor"
 }
 
 // Ports
@@ -74,7 +79,9 @@ locals {
   otel_collector_port_http = 4318
   rabbitmq_port = "5672" // 5671 for TLS
   experiment_config_sidecar_port = 5000
-  influxdb_port = 8086
+  experiment_executor_port = 8888
+  gatling_executor_port = 8889
+  chaostoolkit_executor_port = 8890
 }
 
 // DB Addresses
@@ -141,7 +148,12 @@ locals {
   // rabbitmq_url     = "${var.MISARCH_DB_USER}:${random_password.rabbitmq_password.result}@${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
   otel_collector_url_http = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port_http}"
-  influxdb_url = "${local.influxdb_service_name}.${local.namespace}.svc.cluster.local:${local.influxdb_port}"
+  influxdb_url = "${local.influxdb_service_name}.${local.namespace}.svc.cluster.local"
+  grafana_url = "prometheus-stack-grafana.${local.namespace}.svc.cluster.local"
+  experiment_config_url = "${local.misarch_experiment_config_service_name}.${local.namespace}.svc.cluster.local"
+  experiment_executor_url = "${local.misarch_experiment_executor_service_name}.${local.namespace}.svc.cluster.local:${local.experiment_executor_port}"
+  gatling_executor_url = "${local.misarch_gatling_executor_service_name}.${local.namespace}.svc.cluster.local:${local.gatling_executor_port}"
+  chaostoolkit_executor_url = "${local.misarch_chaostoolkit_executor_service_name}.${local.namespace}.svc.cluster.local:${local.chaostoolkit_executor_port}"
 }
 
 

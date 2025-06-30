@@ -17,9 +17,6 @@ locals {
   misarch_discount_specific_labels = {
     app = local.misarch_discount_service_name
   }
-  misarch_experiment_config_specific_labels = {
-    app = local.misarch_experiment_config_service_name
-  }
   misarch_frontend_specific_labels = {
     app = local.misarch_frontend_service_name
   }
@@ -73,5 +70,20 @@ locals {
   #}
   rabbitmq_specific_labels = {
     app = local.rabbitmq_service_name
+  }
+  misarch_experiment_config_specific_labels = {
+    app = local.misarch_experiment_config_service_name
+  }
+  misarch_experiment_executor_specific_labels = {
+    app = local.misarch_experiment_executor_service_name
+  }
+  misarch_experiment_executor_frontend_specific_labels = {
+    app = local.misarch_experiment_executor_frontend_service_name
+  }
+  misarch_gatling_executor_specific_labels = {
+      app = local.misarch_gatling_executor_service_name
+  }
+  misarch_chaostoolkit_executor_specific_labels = {
+      app = local.misarch_chaostoolkit_executor_service_name
   }
 }

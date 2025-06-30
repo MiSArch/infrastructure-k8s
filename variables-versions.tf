@@ -54,11 +54,6 @@ variable "MISARCH_DISCOUNT_VERSION" {
   default = "main"
 }
 
-variable "MISARCH_EXPERIMENT_CONFIG_VERSION" {
-  type    = string
-  default = "main"
-}
-
 variable "MISARCH_FRONTEND_VERSION" {
   type    = string
   default = "main"
@@ -152,4 +147,29 @@ variable "MISARCH_EXPERIMENT_CONFIG_SIDECAR_VERSION" {
 variable "OTEL_COLLECTOR_VERSION" {
   type    = string
   default = "0.128.0"
+}
+
+variable "MISARCH_EXPERIMENT_CONFIG_VERSION" {
+  type    = string
+  default = "main"
+}
+
+variable "MISARCH_EXPERIMENT_EXECUTOR_VERSION" {
+  type    = string
+  default = "main"
+}
+
+variable "MISARCH_EXPERIMENT_EXECUTOR_FRONTEND_VERSION" {
+  type    = string
+  default = "main"
+}
+
+variable "MISARCH_GATLING_EXECUTOR_VERSION" {
+  type    = string
+  default = "main"
+}
+
+variable "MISARCH_CHAOSTOOLKIT_EXECUTOR_VERSION" {
+  type    = string
+  default = "main"
 }

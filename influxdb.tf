@@ -1,7 +1,7 @@
 resource "helm_release" "influxdb" {
   name       = local.influxdb_service_name
   repository = "https://helm.influxdata.com"
-  chart      = "influxdb"
+  chart      = "influxdb2"
   namespace  = local.namespace
 
   # TODO proper credentials

@@ -12,10 +12,10 @@ resource "helm_release" "redis" {
   # Everything depends on redis being ready quickly, so decrease the preset timelimit and rather let it fail a few times to save some setup time
   master:
     readinessProbe:
-      initialDelaySeconds: 10
+      initialDelaySeconds: 30
   slave:
     readinessProbe:
-      initialDelaySeconds: 10
+      initialDelaySeconds: 30
   EOF
   ]
 }
