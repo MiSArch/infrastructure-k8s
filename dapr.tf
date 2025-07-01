@@ -13,12 +13,30 @@ resource "helm_release" "redis" {
   master:
     readinessProbe:
       initialDelaySeconds: 30
+    extraFlags:
+      - "--appendonly no"
+      - "--save 900 1"
+      - "--save 300 10"
+      - "--save 60 10000"
+    persistence:
+      enabled: true
+    terminationGracePeriodSeconds: 30
+
   slave:
     readinessProbe:
       initialDelaySeconds: 30
+    extraFlags:
+      - "--appendonly no"
+    persistence:
+      enabled: true
+    terminationGracePeriodSeconds: 30
+
+  metrics:
+    enabled: true
   EOF
   ]
 }
+
 
 resource "helm_release" "dapr" {
   depends_on = [helm_release.redis]
