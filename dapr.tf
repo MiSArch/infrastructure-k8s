@@ -12,7 +12,7 @@ resource "helm_release" "redis" {
   # Everything depends on redis being ready quickly, so decrease the preset timelimit and rather let it fail a few times to save some setup time
   master:
     readinessProbe:
-      initialDelaySeconds: 30
+      enabled: false
     extraFlags:
       - "--appendonly no"
       - "--save 900 1"
@@ -22,9 +22,9 @@ resource "helm_release" "redis" {
       enabled: true
     terminationGracePeriodSeconds: 30
 
-  slave:
+  replica:
     readinessProbe:
-      initialDelaySeconds: 30
+      enabled: false
     extraFlags:
       - "--appendonly no"
     persistence:
