@@ -23,13 +23,7 @@ resource "helm_release" "redis" {
     terminationGracePeriodSeconds: 30
 
   replica:
-    readinessProbe:
-      enabled: false
-    extraFlags:
-      - "--appendonly no"
-    persistence:
-      enabled: true
-    terminationGracePeriodSeconds: 30
+    replicaCount: 0
 
   metrics:
     enabled: true
