@@ -387,6 +387,7 @@ resource "kubernetes_config_map" "misarch_payment_env_vars" {
     "DATABASE_URI"                  = "mongodb://${local.payment_db_url}"
     "DATABASE_NAME"                 = var.MISARCH_DB_DATABASE
     "PAYMENT_PROVIDER_URL"          = "http://${local.simulation_url}/payment/register"
+    "SIMULATION_URL"                = "http://${local.simulation_url}"
     "OTEL_EXPORTER_OTLP_ENDPOINT"   = "http://${local.otel_collector_url_http}"
     "OTEL_NODE_RESOURCE_DETECTORS"  = "env,host,os"
     "OTEL_SERVICE_NAME"             = "payment"
