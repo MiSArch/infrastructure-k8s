@@ -50,7 +50,6 @@ locals {
   misarch_tax_service_name          = "misarch-tax"
   misarch_user_service_name         = "misarch-user"
   misarch_wishlist_service_name     = "misarch-wishlist"
-  #misarch_testdata_service_name     = "misarch-testdata"
 
   minio_service_name = "minio"
   rabbitmq_service_name = "rabbitmq"

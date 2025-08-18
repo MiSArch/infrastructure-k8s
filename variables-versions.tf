@@ -124,11 +124,6 @@ variable "MISARCH_TAX_VERSION" {
   default = "main"
 }
 
-#variable "MISARCH_TESTDATA_VERSION" {
-#  type = string
-#  default = "main"
-#}
-
 variable "MISARCH_USER_VERSION" {
   type    = string
   default = "main"

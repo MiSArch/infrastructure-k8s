@@ -20,7 +20,6 @@ locals {
   misarch_shoppingcart_env_vars_configmap                 = "misarch-shoppingcart-env-vars"
   misarch_simulation_env_vars_configmap                   = "misarch-simulation-env-vars"
   misarch_tax_env_vars_configmap = "misarch-tax-env-vars"
-  #misarch_testdata_env_vars_configmap                    = "misarch-testdata-env-vars"
   misarch_user_env_vars_configmap                         = "misarch-user-env-vars"
   misarch_wishlist_env_vars_configmap                     = "misarch-wishlist-env-vars"
   rabbitmq_env_vars_configmap                             = "rabbitmq-env-vars"
@@ -575,26 +574,6 @@ resource "kubernetes_config_map" "misarch_tax_ecs_env_vars" {
     "ASPNETCORE_HTTP_PORTS" = local.experiment_config_sidecar_port
   }
 }
-
-# resource "kubernetes_config_map" "misarch_testdata_env_vars" {
-#   metadata {
-#     name      = local.misarch_testdata_env_vars_configmap
-#     namespace = local.namespace
-#   }
-#
-#   data = {
-#     GRAPHQL_ENDPOINT = "http://misarch-gateway:8080/graphql"
-#     KEYCLOAK_URL = "http://${local.keycloak_url}/keycloak"
-#     REALM = "Misarch"
-#     ADMIN_USER = "admin"
-#     ADMIN_PASS = "admin"
-#     ADMIN_CLIENT_ID = "admin-cli"
-#     CLIENT_ID = "frontend"
-#     GATLING_USERNAME = "gatling"
-#     GATLING_PASSWORD = "123"
-#     GRANT_TYPE = "password"
-#   }
-# }
 
 resource "kubernetes_config_map" "misarch_user_env_vars" {
   metadata {

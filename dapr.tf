@@ -31,7 +31,6 @@ resource "helm_release" "redis" {
   ]
 }
 
-
 resource "helm_release" "dapr" {
   depends_on = [helm_release.redis]
   name       = "dapr"
