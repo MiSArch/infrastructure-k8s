@@ -2,6 +2,12 @@ locals {
   base_misarch_labels = {}
 }
 locals {
+  minio_specific_labels = {
+    app = local.minio_service_name
+  }
+  misarch_keycloak_specific_labels = {
+    app = local.keycloak_service_name
+  }
   misarch_address_specific_labels = {
     app = local.misarch_address_service_name
   }
@@ -47,6 +53,9 @@ locals {
   misarch_shoppingcart_specific_labels = {
     app = local.misarch_shoppingcart_service_name
   }
+  misarch_simulation_specific_labels = {
+    app = local.misarch_simulation_service_name
+  }
   misarch_tax_specific_labels = {
     app = local.misarch_tax_service_name
   }
@@ -55,5 +64,23 @@ locals {
   }
   misarch_wishlist_specific_labels = {
     app = local.misarch_wishlist_service_name
+  }
+  rabbitmq_specific_labels = {
+    app = local.rabbitmq_service_name
+  }
+  misarch_experiment_config_specific_labels = {
+    app = local.misarch_experiment_config_service_name
+  }
+  misarch_experiment_executor_specific_labels = {
+    app = local.misarch_experiment_executor_service_name
+  }
+  misarch_experiment_executor_frontend_specific_labels = {
+    app = local.misarch_experiment_executor_frontend_service_name
+  }
+  misarch_gatling_executor_specific_labels = {
+      app = local.misarch_gatling_executor_service_name
+  }
+  misarch_chaostoolkit_executor_specific_labels = {
+      app = local.misarch_chaostoolkit_executor_service_name
   }
 }

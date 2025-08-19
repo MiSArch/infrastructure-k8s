@@ -1,9 +1,9 @@
-resource "kubernetes_deployment" "misarch_invoice" {
-  depends_on = [helm_release.misarch_invoice_db, terraform_data.dapr]
+resource "kubernetes_deployment" "misarch_simulation" {
+  depends_on = [terraform_data.dapr, kubernetes_deployment.keycloak]
   metadata {
 
-    name      = local.misarch_invoice_service_name
-    labels    = merge(local.base_misarch_labels, local.misarch_invoice_specific_labels)
+    name      = local.misarch_simulation_service_name
+    labels    = merge(local.base_misarch_labels, local.misarch_simulation_specific_labels)
     namespace = local.namespace
   }
 
@@ -12,24 +12,23 @@ resource "kubernetes_deployment" "misarch_invoice" {
 
     selector {
       match_labels = {
-        app = local.misarch_invoice_service_name
+        app = local.misarch_simulation_service_name
       }
     }
 
     template {
       metadata {
-        labels      = merge(local.base_misarch_labels, local.misarch_invoice_specific_labels)
-        annotations = merge(local.base_misarch_annotations, local.misarch_invoice_specific_annotations)
+        labels      = merge(local.base_misarch_labels, local.misarch_simulation_specific_labels)
+        annotations = merge(local.base_misarch_annotations, local.misarch_simulation_specific_annotations)
       }
 
       spec {
 
         container {
-          image             = "ghcr.io/misarch/invoice:${var.MISARCH_INVOICE_VERSION}"
+          image             = "ghcr.io/misarch/simulation:${var.MISARCH_SIMULATION_VERSION}"
           image_pull_policy = "Always"
 
-          name = local.misarch_invoice_service_name
-
+          name = local.misarch_simulation_service_name
 
           resources {
             limits = {
@@ -49,7 +48,7 @@ resource "kubernetes_deployment" "misarch_invoice" {
           }
           env_from {
             config_map_ref {
-              name = local.misarch_invoice_env_vars_configmap
+              name = local.misarch_simulation_env_vars_configmap
             }
           }
         }
@@ -73,7 +72,7 @@ resource "kubernetes_deployment" "misarch_invoice" {
 
           env_from {
             config_map_ref {
-              name = local.misarch_invoice_ecs_env_vars_configmap
+              name = local.misarch_simulation_ecs_env_vars_configmap
             }
           }
         }

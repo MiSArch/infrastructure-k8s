@@ -1,12 +1,19 @@
 locals {
   inventory_db_secret_name    = "mongodb-credentials-inventory"
   invoice_db_secret_name      = "mongodb-credentials-invoice"
+  media_db_secret_name        = "mongodb-credentials-media"
   order_db_secret_name        = "mongodb-credentials-order"
   payment_db_secret_name      = "mongodb-credentials-payment"
   review_db_secret_name       = "mongodb-credentials-review"
   shoppingcart_db_secret_name = "mongodb-credentials-shoppingcart"
   wishlist_db_secret_name     = "mongodb-credentials-wishlist"
 }
+
+# TODO fix the auth of all MongoDBs, somehow they do not start up when auth is enabled
+# Auth schema:
+# usernames: ["${var.MISARCH_DB_USER}"]
+# databases: ["${var.MISARCH_DB_DATABASE}"]
+# existingSecret: "${local.<service-name>_secret_name}"
 
 # Inventory
 resource "helm_release" "misarch_inventory_db" {
@@ -23,11 +30,10 @@ resource "helm_release" "misarch_inventory_db" {
     image:
       tag: "${var.MONGODB_VERSION}"
     auth:
-      usernames: ["${var.MISARCH_DB_USER}"]
-      databases: ["${var.MISARCH_DB_DATABASE}"]
-      existingSecret: "${local.inventory_db_secret_name}"
+      enabled: false
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -60,11 +66,10 @@ resource "helm_release" "misarch_invoice_db" {
     image:
       tag: "${var.MONGODB_VERSION}"
     auth:
-      usernames: ["${var.MISARCH_DB_USER}"]
-      databases: ["${var.MISARCH_DB_DATABASE}"]
-      existingSecret: "${local.invoice_db_secret_name}"
+      enabled: false
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -79,6 +84,42 @@ resource "kubernetes_secret" "mongodb_credentials_invoice" {
     "mongodb-root-password"     = random_password.mongodb_root_password_invoice.result
     "mongodb-passwords"         = random_password.misarch_invoice_db_password.result
     "mongodb-replica-set-key"   = random_password.mongodb_replica_set_key_invoice.result
+  }
+}
+
+# Media
+resource "helm_release" "misarch_media_db" {
+  depends_on = [kubernetes_secret.mongodb_credentials_media]
+  name       = local.media_db_service_name
+  repository = "oci://registry-1.docker.io/bitnamicharts"
+  chart      = "mongodb"
+  namespace  = local.namespace
+
+  values = [
+    <<-EOF
+    fullnameOverride: "${local.media_db_service_name}"
+    architecture: "replicaset"
+    image:
+      tag: "${var.MONGODB_VERSION}"
+    auth:
+      enabled: false
+    metrics:
+      enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
+    EOF
+  ]
+}
+
+resource "kubernetes_secret" "mongodb_credentials_media" {
+  metadata {
+    name      = local.media_db_secret_name
+    namespace = local.namespace
+  }
+
+  data = {
+    "mongodb-root-password"     = random_password.mongodb_root_password_media.result
+    "mongodb-passwords"         = random_password.misarch_media_db_password.result
+    "mongodb-replica-set-key"   = random_password.mongodb_replica_set_key_media.result
   }
 }
 
@@ -97,11 +138,10 @@ resource "helm_release" "misarch_order_db" {
     image:
       tag: "${var.MONGODB_VERSION}"
     auth:
-      usernames: ["${var.MISARCH_DB_USER}"]
-      databases: ["${var.MISARCH_DB_DATABASE}"]
-      existingSecret: "${local.order_db_secret_name}"
+      enabled: false
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -134,11 +174,10 @@ resource "helm_release" "misarch_payment_db" {
     image:
       tag: "${var.MONGODB_VERSION}"
     auth:
-      usernames: ["${var.MISARCH_DB_USER}"]
-      databases: ["${var.MISARCH_DB_DATABASE}"]
-      existingSecret: "${local.payment_db_secret_name}"
+      enabled: false
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -171,11 +210,10 @@ resource "helm_release" "misarch_review_db" {
     image:
       tag: "${var.MONGODB_VERSION}"
     auth:
-      usernames: ["${var.MISARCH_DB_USER}"]
-      databases: ["${var.MISARCH_DB_DATABASE}"]
-      existingSecret: "${local.review_db_secret_name}"
+      enabled: false
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -208,11 +246,10 @@ resource "helm_release" "misarch_shoppingcart_db" {
     image:
       tag: "${var.MONGODB_VERSION}"
     auth:
-      usernames: ["${var.MISARCH_DB_USER}"]
-      databases: ["${var.MISARCH_DB_DATABASE}"]
-      existingSecret: "${local.shoppingcart_db_secret_name}"
+      enabled: false
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }
@@ -245,11 +282,10 @@ resource "helm_release" "misarch_wishlist_db" {
     image:
       tag: "${var.MONGODB_VERSION}"
     auth:
-      usernames: ["${var.MISARCH_DB_USER}"]
-      databases: ["${var.MISARCH_DB_DATABASE}"]
-      existingSecret: "${local.wishlist_db_secret_name}"
+      enabled: false
     metrics:
       enabled: true
+    resourcesPreset: "${var.MONGODB_RESOURCE_PRESET}"
     EOF
   ]
 }

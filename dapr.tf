@@ -1,7 +1,7 @@
 resource "helm_release" "redis" {
   depends_on = [kubernetes_namespace.misarch]
   name       = "redis"
-  repository = "https://charts.bitnami.com/bitnami"
+  repository = "oci://registry-1.docker.io/bitnamicharts"
   chart      = "redis"
   namespace  = local.namespace
 
@@ -12,10 +12,21 @@ resource "helm_release" "redis" {
   # Everything depends on redis being ready quickly, so decrease the preset timelimit and rather let it fail a few times to save some setup time
   master:
     readinessProbe:
-      initialDelaySeconds: 10
-  slave:
-    readinessProbe:
-      initialDelaySeconds: 10
+      enabled: false
+    extraFlags:
+      - "--appendonly no"
+      - "--save 900 1"
+      - "--save 300 10"
+      - "--save 60 10000"
+    persistence:
+      enabled: true
+    terminationGracePeriodSeconds: 30
+
+  replica:
+    replicaCount: 0
+
+  metrics:
+    enabled: true
   EOF
   ]
 }
@@ -70,6 +81,27 @@ resource "kubectl_manifest" "dapr_pubsub_config" {
   EOF
 }
 
+resource "kubectl_manifest" "dapr_pubsub_config_experiment_config" {
+  depends_on = [helm_release.dapr]
+  yaml_body  = <<-EOF
+  apiVersion:  "dapr.io/v1alpha1"
+  kind: "Component"
+  metadata:
+    name: "experiment-config-pubsub"
+    namespace: ${local.namespace}
+
+  spec:
+    type: "pubsub.redis"
+    version: "v1"
+
+    metadata:
+      - name: "redisHost"
+        value: "redis-master:6379"
+      - name: "redisPassword"
+        value: ${random_password.redis.result}
+  EOF
+}
+
 resource "kubectl_manifest" "dapr_config" {
   depends_on = [helm_release.dapr]
   yaml_body  = <<-EOF
@@ -85,10 +117,13 @@ resource "kubectl_manifest" "dapr_config" {
           endpointAddress: ${local.otel_collector_url}
           protocol: grpc
           isSecure: false
+      metrics:
+        enabled: true
   EOF
 }
 
 // Pseudo resource so that all services can simply depend on this resource instead of the whole list ↓
 resource "terraform_data" "dapr" {
-  depends_on = [helm_release.dapr, kubectl_manifest.dapr_config, kubectl_manifest.dapr_pubsub_config, kubectl_manifest.dapr_state_config]
+  depends_on = [helm_release.dapr, kubectl_manifest.dapr_config, kubectl_manifest.dapr_pubsub_config_experiment_config,
+    kubectl_manifest.dapr_pubsub_config, kubectl_manifest.dapr_state_config]
 }

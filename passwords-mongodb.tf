@@ -40,6 +40,28 @@ output "mongodb_replica_set_key_invoice" {
   sensitive = true
 }
 
+# Media Service
+resource "random_password" "mongodb_root_password_media" {
+  length  = 32
+  special = false
+}
+
+resource "random_password" "mongodb_replica_set_key_media" {
+  length  = 32
+  special = false
+}
+
+output "mongodb_root_password_media" {
+  value     = random_password.mongodb_root_password_media.result
+  sensitive = true
+}
+
+output "mongodb_replica_set_key_media" {
+  value     = random_password.mongodb_replica_set_key_media.result
+  sensitive = true
+}
+
+
 # Order Service
 resource "random_password" "mongodb_root_password_order" {
   length  = 32

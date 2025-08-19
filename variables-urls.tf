@@ -1,6 +1,13 @@
 variable "ROOT_DOMAIN" {
   type        = string
   description = "Full URL the instance will be published on. Should not have a trailing slash."
+  default     = "http://localhost:8080"
+}
+
+// Global Domain
+locals {
+  // This will likely change in the future. If the backend is not exposed via the internet, this must be set to the localhost port-forward URL.
+  global_domain = "https://misarch-experiment.gropius.dev"
 }
 
 // DBs
@@ -21,12 +28,14 @@ locals {
   tax_db_service_name          = "tax-db"
   user_db_service_name         = "user-db"
   wishlist_db_service_name     = "wishlist-db"
+  keycloak_db_service_name     = "keycloak-db"
 }
 
 // Services
 locals {
   ingress_name          = "misarch-ingress"
   keycloak_service_name = "keycloak"
+  influxdb_service_name = "influxdb"
 
   misarch_address_service_name      = "misarch-address"
   misarch_catalog_service_name      = "misarch-catalog"
@@ -48,7 +57,16 @@ locals {
   misarch_user_service_name         = "misarch-user"
   misarch_wishlist_service_name     = "misarch-wishlist"
 
+  minio_service_name = "minio"
+  rabbitmq_service_name = "rabbitmq"
   otel_collector_service_name = "otel-collector"
+  misarch_ecs_service_name = "misarch-ecs"
+
+  misarch_experiment_config_service_name     = "misarch-experiment-config"
+  misarch_experiment_executor_service_name = "misarch-experiment-executor"
+  misarch_experiment_executor_frontend_service_name = "misarch-experiment-executor-frontend"
+  misarch_gatling_executor_service_name = "misarch-gatling-executor"
+  misarch_chaostoolkit_executor_service_name = "misarch-chaostoolkit-executor"
 }
 
 // Ports
@@ -57,9 +75,18 @@ locals {
   keycloak_port       = 80 # Okay, weird things are happening here: While keycloak runs under `8080`, the keycloak svc exposes port `80`. In other words, there is even an internal redirect happening here?
   frontend_port       = 80
   simulation_port     = 8080
+  shipment_port     = 8080
+  payment_port     = 8080
+  minio_port     = "9000"
   mongo_db_port       = 27017
   postgres_db_port    = 5432
   otel_collector_port = 4317
+  otel_collector_port_http = 4318
+  rabbitmq_port = "5672" // 5671 for TLS
+  experiment_config_sidecar_port = 5000
+  experiment_executor_port = 8888
+  gatling_executor_port = 8889
+  chaostoolkit_executor_port = 8890
 }
 
 // DB Addresses
@@ -69,22 +96,25 @@ locals {
   address_db_full_service_name      = local.address_db_service_name # "${local.address_db_service_name}-postgresql"
   catalog_db_full_service_name      = local.catalog_db_service_name
   discount_db_full_service_name     = local.discount_db_service_name
-  media_db_full_service_name        = local.media_db_service_name
   notification_db_full_service_name = local.notification_db_service_name
   return_db_full_service_name       = local.return_db_service_name
   shipment_db_full_service_name     = local.shipment_db_service_name
   tax_db_full_service_name          = local.tax_db_service_name
   user_db_full_service_name         = local.user_db_service_name
+  keycloak_db_full_service_name     = local.keycloak_db_service_name
 
   // MongoDB
   inventory_db_full_service_name    = "${local.inventory_db_service_name}-headless"
   invoice_db_full_service_name      = "${local.invoice_db_service_name}-headless"
+  media_db_full_service_name        = "${local.media_db_service_name}-headless"
   order_db_full_service_name        = "${local.order_db_service_name}-headless"
   payment_db_full_service_name      = "${local.payment_db_service_name}-headless"
   review_db_full_service_name       = "${local.review_db_service_name}-headless"
   shoppingcart_db_full_service_name = "${local.shoppingcart_db_service_name}-headless"
   wishlist_db_full_service_name     = "${local.wishlist_db_service_name}-headless"
 
+  minio_full_service_name = local.minio_service_name
+  rabbitmq_full_service_name = local.rabbitmq_service_name
   otel_collector_full_service_name = "${local.otel_collector_service_name}-opentelemetry-collector"
 }
 
@@ -95,7 +125,7 @@ locals {
   discount_db_url     = "${local.discount_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   inventory_db_url    = "${local.inventory_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
   invoice_db_url      = "${local.invoice_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
-  media_db_url        = "${local.media_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
+  media_db_url        = "${local.media_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
   notification_db_url = "${local.notification_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   order_db_url        = "${local.order_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
   payment_db_url      = "${local.payment_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
@@ -106,6 +136,7 @@ locals {
   tax_db_url          = "${local.tax_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   user_db_url         = "${local.user_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
   wishlist_db_url     = "${local.wishlist_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.mongo_db_port}"
+  keycloak_db_url     = "${local.keycloak_db_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.postgres_db_port}"
 }
 
 // Service URLs
@@ -113,9 +144,27 @@ locals {
   dapr_url           = "http://localhost:${local.dapr_port}"
   keycloak_url       = "${local.keycloak_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.keycloak_port}"
   simulation_url     = "${local.misarch_simulation_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.simulation_port}"
+  shipment_url     = "${local.misarch_shipment_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.shipment_port}"
+  payment_url     = "${local.misarch_payment_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.payment_port}"
+
+  minio_url     = "${local.minio_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.minio_port}"
+  rabbitmq_url     = "${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
+  // For some unknown reason, the version below with password does not work
+  // rabbitmq_url     = "${var.MISARCH_DB_USER}:${random_password.rabbitmq_password.result}@${local.rabbitmq_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.rabbitmq_port}"
   otel_collector_url = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port}"
+  otel_collector_url_http = "${local.otel_collector_full_service_name}.${var.KUBERNETES_NAMESPACE}.svc.cluster.local:${local.otel_collector_port_http}"
+  influxdb_url = "${local.influxdb_service_name}.${local.namespace}.svc.cluster.local"
+  grafana_url = "prometheus-stack-grafana.${local.namespace}.svc.cluster.local"
+  experiment_config_url = "${local.misarch_experiment_config_service_name}.${local.namespace}.svc.cluster.local"
+  experiment_executor_url = "${local.misarch_experiment_executor_service_name}.${local.namespace}.svc.cluster.local:${local.experiment_executor_port}"
+  gatling_executor_url = "${local.misarch_gatling_executor_service_name}.${local.namespace}.svc.cluster.local:${local.gatling_executor_port}"
+  chaostoolkit_executor_url = "${local.misarch_chaostoolkit_executor_service_name}.${local.namespace}.svc.cluster.local:${local.chaostoolkit_executor_port}"
 }
 
+// OTEL COLLECTOR URL FOR PROMETHEUS
+locals {
+  otel_collector_prometheus_url = "otel-collector-opentelemetry-collector.${local.namespace}.svc.cluster.local:8889"
+}
 
 // GraphQL URLs
 locals {
