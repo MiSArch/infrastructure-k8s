@@ -8,7 +8,7 @@ resource "kubernetes_ingress_v1" "misarch" {
   spec {
     default_backend {
       service {
-        name = "prometheus-stack-grafana"
+        name = local.misarch_frontend_service_name
         port {
           number = local.frontend_port
         }
@@ -18,52 +18,15 @@ resource "kubernetes_ingress_v1" "misarch" {
     rule {
       http {
         path {
-          path      = "/"
-          path_type = "Prefix"
-
           backend {
             service {
-              name = "prometheus-stack-grafana"
+              name = local.misarch_frontend_service_name
               port {
                 number = local.frontend_port
               }
             }
           }
-        }
-      }
-    }
-
-    rule {
-      http {
-        path {
-          path      = "/experiment"
-          path_type = "Prefix"
-
-          backend {
-            service {
-              name = local.misarch_experiment_executor_service_name
-              port {
-                number = local.experiment_executor_port
-              }
-            }
-          }
-        }
-      }
-    }
-    rule {
-      http {
-        path {
-          path      = "/frontend"
-          path_type = "Prefix"
-
-          backend {
-            service {
-              name = local.misarch_experiment_executor_frontend_service_name
-              port {
-                number = local.frontend_port
-              }
-            }
-          }
+          path = "/"
         }
       }
     }
