@@ -1,13 +1,19 @@
 locals {
   inventory_db_secret_name    = "mongodb-credentials-inventory"
   invoice_db_secret_name      = "mongodb-credentials-invoice"
-  media_db_secret_name      = "mongodb-credentials-media"
+  media_db_secret_name        = "mongodb-credentials-media"
   order_db_secret_name        = "mongodb-credentials-order"
   payment_db_secret_name      = "mongodb-credentials-payment"
   review_db_secret_name       = "mongodb-credentials-review"
   shoppingcart_db_secret_name = "mongodb-credentials-shoppingcart"
   wishlist_db_secret_name     = "mongodb-credentials-wishlist"
 }
+
+# TODO fix the auth of all MongoDBs, somehow they do not start up when auth is enabled
+# Auth schema:
+# usernames: ["${var.MISARCH_DB_USER}"]
+# databases: ["${var.MISARCH_DB_DATABASE}"]
+# existingSecret: "${local.<service-name>_secret_name}"
 
 # Inventory
 resource "helm_release" "misarch_inventory_db" {
@@ -269,7 +275,6 @@ resource "helm_release" "misarch_wishlist_db" {
   chart      = "mongodb"
   namespace  = local.namespace
 
-  # TODO fix the auth
   values = [
     <<-EOF
     fullnameOverride: "${local.wishlist_db_service_name}"

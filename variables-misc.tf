@@ -29,6 +29,26 @@ variable "KEYCLOAK_DB_DATABASE" {
   default = "keycloak"
 }
 
+variable "INFLUXDB_USER" {
+  type    = string
+  default = "admin"
+}
+
+variable "INFLUXDB_PASSWORD" {
+  type    = string
+  default = "admin123"
+}
+
+variable INFLUXDB_ORG {
+  type = string
+  default = "misarch"
+}
+
+variable "INFLUXDB_BUCKET" {
+  type = string
+  default = "gatling"
+}
+
 variable "MISARCH_SIMULATION_PAYMENTS_PER_MINUTE" {
   type    = number
   default = 10000000

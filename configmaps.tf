@@ -71,6 +71,7 @@ resource "kubernetes_config_map" "keycloak_env_vars" {
     "KEYCLOAK_HTTPS_ENABLED" = "false"
     "KC_HTTP_PORT"           = "8080"
     "KC_DB_URL"              = "jdbc:postgresql://${local.keycloak_db_url}/keycloak"
+    "KC_DB_PASSWORD"         = random_password.keycloak_db_password.result
   }
 }
 
@@ -643,7 +644,6 @@ resource "kubernetes_config_map" "misarch_experiment_executor_env_vars" {
     namespace = local.namespace
   }
 
-  # todo secrets
   data = {
     "GRAFANA_ADMIN_USER"             = "admin"
     "GRAFANA_ADMIN_PASSWORD"         = "prom-operator"
@@ -653,7 +653,7 @@ resource "kubernetes_config_map" "misarch_experiment_executor_env_vars" {
     "GATLING_EXECUTOR_HOST"          = "http://${local.gatling_executor_url}"
     "CHAOSTOOLKIT_EXECUTOR_HOST"     = "http://${local.chaostoolkit_executor_url}"
     "INFLUXDB_URL"                   = "http://${local.influxdb_url}/api/v2/write?org=misarch&bucket=gatling&precision=ms"
-    "INFLUXDB_TOKEN"                 = "my-secret-token"
+    "INFLUXDB_TOKEN"                 = random_password.influxdb_admin_token.result
     "STORE_RESULT_DATA_IN_FILES"     = "false"
     "USE_MISARCH_EXPERIMENT_CONFIG"  = "true"
     "IS_KUBERNETES"                  = "true"
@@ -666,10 +666,8 @@ resource "kubernetes_config_map" "misarch_experiment_executor_frontend_env_vars"
     namespace = local.namespace
   }
 
-  # TODO this does not work neither does it make sense -> the backend would need a public ingress to be accessible from a local browser
-  #  otherwise port-forward the experiment-executor service
   data = {
-    "VITE_BACKEND_URL" = "http://${local.experiment_executor_url}"
+    "BACKEND_URL" = local.global_domain
   }
 }
 

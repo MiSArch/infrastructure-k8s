@@ -4,6 +4,12 @@ variable "ROOT_DOMAIN" {
   default     = "http://localhost:8080"
 }
 
+// Global Domain
+locals {
+  // This will likely change in the future. If the backend is not exposed via the internet, this must be set to the localhost port-forward URL.
+  global_domain = "https://misarch-experiment.gropius.dev"
+}
+
 // DBs
 locals {
   address_db_service_name      = "address-db"
@@ -155,6 +161,10 @@ locals {
   chaostoolkit_executor_url = "${local.misarch_chaostoolkit_executor_service_name}.${local.namespace}.svc.cluster.local:${local.chaostoolkit_executor_port}"
 }
 
+// OTEL COLLECTOR URL FOR PROMETHEUS
+locals {
+  otel_collector_prometheus_url = "otel-collector-opentelemetry-collector.${local.namespace}.svc.cluster.local:8889"
+}
 
 // GraphQL URLs
 locals {

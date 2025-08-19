@@ -179,7 +179,6 @@ resource "helm_release" "misarch_keycloak_db" {
   chart      = "postgresql"
   namespace  = local.namespace
 
-  # TODO proper password
   values = [
     <<-EOF
     fullnameOverride: "${local.keycloak_db_service_name}"
@@ -189,7 +188,7 @@ resource "helm_release" "misarch_keycloak_db" {
       enablePostgresUser: false
       username: ${var.KEYCLOAK_DB_USER}
       database: ${var.KEYCLOAK_DB_DATABASE}
-      password: "postgres"
+      password: "${random_password.keycloak_db_password.result}"
     metrics:
       enabled: false
     EOF

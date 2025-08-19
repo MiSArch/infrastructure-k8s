@@ -4,7 +4,6 @@ resource "helm_release" "prometheus_grafana_stack" {
   chart      = "kube-prometheus-stack"
   namespace  = local.namespace
 
-  # todo influx values in vars
   values = [
     <<-EOF
   prometheus:
@@ -13,7 +12,7 @@ resource "helm_release" "prometheus_grafana_stack" {
         - job_name: 'otel-collector'
           scrape_interval: 5s
           static_configs:
-            - targets: ['otel-collector-opentelemetry-collector.${local.namespace}.svc.cluster.local:8889']
+            - targets: ['${local.otel_collector_prometheus_url}']
 
   grafana:
     enabled: true
@@ -28,11 +27,11 @@ resource "helm_release" "prometheus_grafana_stack" {
             url: http://${local.influxdb_url}
             jsonData:
               version: Flux
-              organization: misarch
-              defaultBucket: gatling
+              organization: ${var.INFLUXDB_ORG}
+              defaultBucket: ${var.INFLUXDB_BUCKET}
               httpMode: POST
             secureJsonData:
-              token: my-secret-token
+              token: "${random_password.influxdb_admin_token.result}"
 
   EOF
   ]

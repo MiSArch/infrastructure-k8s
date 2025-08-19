@@ -9,6 +9,21 @@ resource "helm_release" "rabbitmq" {
   chart      = "rabbitmq"
   namespace  = local.namespace
 
+  set = [
+    {
+      name  = "auth.username"
+      value = "guest"
+    },
+    {
+      name  = "auth.password"
+      value = "guest"
+    },
+    {
+      name  = "auth.vhost"
+      value = "/"
+    }
+  ]
+
   values = [
     <<-EOF
     image:
